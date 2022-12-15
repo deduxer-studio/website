@@ -102,7 +102,7 @@ export function initHome() {
       let tl = gsap.timeline({
         scrollTrigger: {
           trigger: $(this),
-          end: '+=120%',
+          end: '+=110%',
           start: 'top top',
           pin: true,
           scrub: true,
@@ -159,9 +159,13 @@ export function initHome() {
       onUpdate: self => {
         currentWaveCount = self.progress * 22
         deductionOptions.cam.zoom = self.progress * 5
-        deductionOptions.rgb.r_color = 0.6 * self.progress
+
       }
     })
+
+
+
+
 
     // gsap.set('.solution-tooltip', {
     //   xPercent: -50,
@@ -192,12 +196,7 @@ export function initHome() {
         duration: .6,
         ease: 'ease.circle.inOut',
       })
-      gsap.to('.work-bg', {
-        scale: 1.01,
-        ease: easeOut,
-        duration: 0.6,
 
-      })
 
     })
     $('.work-card-bg').each(function (index) {
@@ -308,6 +307,8 @@ export function initHome() {
       borderRadius: 0,
       ease: easeOut,
     })
+
+
 
   }
   let master = gsap.timeline()
