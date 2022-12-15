@@ -16,12 +16,13 @@ export function initHome() {
 
   // * Text Split
   new SplitType(
-    '[text-split], .heading-hero, .hero-content_block, .info__headings-itself',
+    '[text-split], .heading-hero, .hero-content_block, .info__headings-itself, .work-title',
     {
       types: 'words, chars, lines',
       tagName: 'span',
     }
   )
+  let currentWaveCount = deductionOptions.perlin.waves
 
 
 
@@ -148,7 +149,7 @@ export function initHome() {
       }, 'same')
 
     })
-    let currentWaveCount = deductionOptions.perlin.waves
+
     ScrollTrigger.create({
       trigger: '.section_info',
       start: 'top top',
@@ -157,6 +158,7 @@ export function initHome() {
       scrub: true,
       onUpdate: self => {
         currentWaveCount = self.progress * 22
+        deductionOptions.cam.zoom = self.progress * 5
       }
     })
 
@@ -173,9 +175,9 @@ export function initHome() {
         y: e.clientY,
         ease: "none"
       });
-      deductionMesh.position.x = e.clientX / 4000
-      deductionMesh.position.y = e.clientY / 4000
-      deductionOptions.perlin.waves = e.clientX / 300
+      deductionMesh.position.x = e.clientX / 2000
+      deductionMesh.position.y = e.clientY / 3000
+      deductionOptions.perlin.waves = e.clientX / 350
       currentWaveCount = deductionOptions.perlin.waves
     })
 
@@ -189,8 +191,56 @@ export function initHome() {
         duration: .6,
         ease: easeOut,
       })
+      gsap.to('.work-bg', {
+        scale: 1.01,
+        ease: easeOut,
+        duration: 0.6,
+
+      })
 
     })
+    $('.work-card-bg').each(function (index) {
+      $(this).hover(function () {
+
+        $(this).find('.work-bg').addClass("active");  //Add the active class to the area is hovered
+      }, function () {
+        $(this).find('.work-bg').removeClass("active");
+      });
+
+
+
+
+    })
+
+    $('.works-cms').each(function () {
+      let hovered = 0
+      console.log(hovered);
+      let tl = gsap.timeline({ paused: true })
+      tl.set('.work-title .char', {
+        y: '-100%',
+      })
+      tl.to($(this).find('.work-title .char'), {
+        y: '0%',
+        stagger: { amount: 0.4 },
+        ease: easeOut,
+        duration: 0.6,
+      })
+
+      $(this).on('mouseenter', function () {
+        hovered = 1
+        console.log(hovered);
+        tl.play()
+
+      })
+      $(this).on('mouseleave', function () {
+        hovered = 0
+        console.log(hovered);
+        tl.reverse()
+
+      })
+
+    })
+
     $('[data-tooltip]').on('mouseleave', function () {
       //get attribute value
       let tooltip = $(this).attr('data-tooltip')
@@ -198,11 +248,14 @@ export function initHome() {
 
       gsap.to($('.tooltip'), {
         scale: 0,
-        duration: 0.3,
+        duration: 0.15,
         ease: 'sine.out',
       })
 
+
+
     })
+
 
     gsap.from('.main_info .line', {
       stagger: { amount: 0.2 },
@@ -221,14 +274,14 @@ export function initHome() {
       scrollTrigger: {
         trigger: '.section_info',
         start: 'top top',
-        end: '+=100%',
+        end: '+=150%',
 
         scrub: true,
 
       }
     })
     tl.to(deductionCamera.position, {
-      x: -2,
+      x: -2.5,
       y: 3,
       z: 3,
       duration: .3,
@@ -237,9 +290,26 @@ export function initHome() {
 
 
   }
+  function Works() {
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.section_works',
+        start: 'top top',
+        scrub: true,
+        end: '+=60%',
+      }
+    })
 
+    tl.to('.background-works', {
+      width: '100%',
+      height: '100%',
+      borderRadius: 0,
+      ease: easeOut,
+    })
+
+  }
   let master = gsap.timeline()
-  master.add(Hero()).add(PinText()).add(Info())
+  master.add(Hero()).add(PinText()).add(Info()).add(Works())
 
 
 

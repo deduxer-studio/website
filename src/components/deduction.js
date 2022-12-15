@@ -123,7 +123,7 @@ var speedRandom = Math.random(10) / 10000;
 var options = {
   perlin: {
     vel: 0.002,
-    speed: 0.0006,
+    speed: 0.0004,
     perlins: 1.0,
     decay: 0.15,
     complex: 0.0,
