@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Flip } from 'gsap/all'
 import $ from 'jquery'
 import SplitType from 'split-type'
-import { deductionOptions, deductionCamera, deductionHeight, deductionWidth } from '../components/deduction'
+import { deductionOptions, deductionCamera, deductionHeight, deductionWidth, deductionMesh } from '../components/deduction'
 
 
 export function initHome() {
@@ -16,7 +16,7 @@ export function initHome() {
 
   // * Text Split
   new SplitType(
-    '[text-split], .heading-hero, .hero-content_block',
+    '[text-split], .heading-hero, .hero-content_block, .info__headings-itself',
     {
       types: 'words, chars, lines',
       tagName: 'span',
@@ -82,7 +82,7 @@ export function initHome() {
       .from('.navbar-logo', {
         opacity: 0,
       }, '<0.5')
-      .from('.navbar-navigation a', {
+      .from('.navbar-navigation_link', {
         opacity: 0,
         yPercent: 100,
         ease: easeOut,
@@ -101,28 +101,117 @@ export function initHome() {
       let tl = gsap.timeline({
         scrollTrigger: {
           trigger: $(this),
-          end: '+=60%',
+          end: '+=120%',
           start: 'top top',
           pin: true,
           scrub: true,
         }
       })
       tl.to($(this), {
-        opacity: 1,
+        yPercent: 30,
       })
+
     })
 
+
+
+
+
+    $('.info-headings_line').each(function (index) {
+      gsap.set($(this).find('.solution-bg'), {
+        scaleY: 0,
+      })
+      gsap.set($(this).find('.heading-solutions .char'), {
+        y: '-100%',
+      })
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: $(this),
+          start: 'top top',
+          end: '+=120%',
+          scrub: true,
+        }
+      });
+
+      tl.to($(this).find('.solution-bg'), {
+        scaleY: 1,
+        transformOrigin: 'bottom',
+        ease: easeOut,
+
+      }, 'same')
+      tl.to($(this).find('.heading-solutions .char'), {
+        y: '0',
+        stagger: { amount: 0.4 },
+
+        ease: easeOut,
+
+      }, 'same')
+
+    })
+    let currentWaveCount = deductionOptions.perlin.waves
     ScrollTrigger.create({
       trigger: '.section_info',
       start: 'top top',
       end: '+=450%',
-      markers: true,
+
       scrub: true,
       onUpdate: self => {
-        deductionOptions.perlin.waves = self.progress * 20
+        currentWaveCount = self.progress * 22
       }
     })
 
+    // gsap.set('.solution-tooltip', {
+    //   xPercent: -50,
+    //   yPercent: -50,
+    //   scale: 0
+    // });
+    $(window).on('mousemove', function (e) {
+      gsap.to('.tooltip', {
+        duration: 0,
+        overwrite: "auto",
+        x: e.clientX,
+        y: e.clientY,
+        ease: "none"
+      });
+      deductionMesh.position.x = e.clientX / 4000
+      deductionMesh.position.y = e.clientY / 4000
+      deductionOptions.perlin.waves = e.clientX / 300
+      currentWaveCount = deductionOptions.perlin.waves
+    })
+
+    $('[data-tooltip]').on('mouseenter', function () {
+      //get attribute value
+      let tooltip = $(this).attr('data-tooltip')
+      $('.tooltip-text').text(tooltip)
+
+      gsap.to($('.tooltip'), {
+        scale: 1,
+        duration: .6,
+        ease: easeOut,
+      })
+
+    })
+    $('[data-tooltip]').on('mouseleave', function () {
+      //get attribute value
+      let tooltip = $(this).attr('data-tooltip')
+      $('.tooltip-text').text(tooltip)
+
+      gsap.to($('.tooltip'), {
+        scale: 0,
+        duration: 0.3,
+        ease: 'sine.out',
+      })
+
+    })
+
+    gsap.from('.main_info .line', {
+      stagger: { amount: 0.2 },
+      yPercent: 100,
+      scrollTrigger: {
+        trigger: '.section_info',
+
+      }
+    })
 
   }
 
@@ -133,7 +222,7 @@ export function initHome() {
         trigger: '.section_info',
         start: 'top top',
         end: '+=100%',
-        markers: true,
+
         scrub: true,
 
       }

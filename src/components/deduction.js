@@ -1,6 +1,5 @@
 /* eslint-disable */
 import { gsap } from 'gsap'
-import * as dat from 'dat.gui'
 import * as THREE from 'three';
 
 
@@ -12,7 +11,6 @@ function init() {
   createLights();
   //createGrid();
   createPrimitive();
-  createGUI();
   //---
   animation();
 }
@@ -21,6 +19,8 @@ export { options as deductionOptions }
 export { camera as deductionCamera }
 export { _width as deductionWidth }
 export { _height as deductionHeight }
+export { mesh as deductionMesh }
+
 
 //--------------------------------------------------------------------
 var scene, camera, renderer, container;
@@ -135,36 +135,14 @@ var options = {
   rgb: {
     r_color: 0.6,
     g_color: 0.8,
-    b_color: 0.14
+    b_color: 0.10
   },
   cam: {
     zoom: 7
   }
 }
-function createGUI() {
-  var gui = new dat.GUI();
-  //gui.close();
 
-  var configGUI = gui.addFolder('Setup');
-  configGUI.add(options.perlin, 'speed', 0.0, 0.001);
-  configGUI.add(options.cam, 'zoom', 0, 30);
-  configGUI.open();
-
-  var perlinGUI = gui.addFolder('Perlin');
-  perlinGUI.add(options.perlin, 'decay', 0.0, 1.0).name('Decay').listen();
-  //perlinGUI.add(options.perlin, 'complex', 0.0, 100.0).name('Complex').listen();
-  perlinGUI.add(options.perlin, 'waves', 0.0, 10.0).name('Waves').listen();
-  perlinGUI.open();
-
-  var colorGUI = gui.addFolder('Color');
-  colorGUI.add(options.perlin, 'eqcolor', 3.0, 50.0).name('Color').listen();
-  colorGUI.add(options.rgb, 'r_color', 0.0, 10.0).name('Red').listen();
-  colorGUI.add(options.rgb, 'g_color', 0.0, 10.0).name('Green').listen();
-  colorGUI.add(options.rgb, 'b_color', 0.0, 10.0).name('Blue').listen();
-  colorGUI.open();
-
-}
-
+let mesh
 var primitiveElement = function () {
   this.mesh = new THREE.Object3D();
   var geo = new THREE.IcosahedronGeometry(1, 6);
@@ -175,8 +153,7 @@ var primitiveElement = function () {
     vertexShader: document.getElementById('vertexShader').textContent,
     fragmentShader: document.getElementById('fragmentShader').textContent
   });
-  var mesh = new THREE.Mesh(geo, mat);
-
+  mesh = new THREE.Mesh(geo, mat);
   //---
   this.mesh.add(mesh);
   console.log(mesh);

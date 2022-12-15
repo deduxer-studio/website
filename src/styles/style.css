@@ -95,6 +95,15 @@ body {
 }
 
 
+
+/* 
+.creative.opened .solution-block {
+  width: 20rem;
+  height: 10rem;
+  transition: all 0.5s ease;
+} */
+
+
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
