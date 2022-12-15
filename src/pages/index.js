@@ -159,6 +159,7 @@ export function initHome() {
       onUpdate: self => {
         currentWaveCount = self.progress * 22
         deductionOptions.cam.zoom = self.progress * 5
+        deductionOptions.rgb.r_color = 0.6 * self.progress
       }
     })
 
