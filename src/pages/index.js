@@ -5,9 +5,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Flip } from 'gsap/all'
 import $ from 'jquery'
 import SplitType from 'split-type'
+import { deductionOptions, deductionCamera, deductionHeight, deductionWidth } from '../components/deduction'
+
 
 export function initHome() {
-
+  console.log(deductionOptions);
   gsap.registerPlugin(ScrollTrigger, Flip);
   // * Easing
   let easeOut = 'power2.inOut'
@@ -99,7 +101,7 @@ export function initHome() {
       let tl = gsap.timeline({
         scrollTrigger: {
           trigger: $(this),
-          end: '+=100%',
+          end: '+=60%',
           start: 'top top',
           pin: true,
           scrub: true,
@@ -110,75 +112,49 @@ export function initHome() {
       })
     })
 
-
-  }
-  gsap.set('.works__rectangles', {
-    display: 'none'
-  })
-
-  function SwitchRectangles() {
-    let tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.section_hero',
-        start: 'top top',
-        end: '+=100%',
-        scrub: true,
-        markers: true,
+    ScrollTrigger.create({
+      trigger: '.section_info',
+      start: 'top top',
+      end: '+=450%',
+      markers: true,
+      scrub: true,
+      onUpdate: self => {
+        deductionOptions.perlin.waves = self.progress * 20
       }
     })
-    tl.to('.rectangles_clone', {
-      display: 'none',
-      onComplete: function () {
-        document.querySelectorAll('.rectangle_clone').forEach((el) => {
-          el.classList.add('rectangle--space')
-        })
-      },
+
+
+  }
+
+  function Info() {
+    //scrolltrigger till end of section 
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.section_info',
+        start: 'top top',
+        end: '+=100%',
+        markers: true,
+        scrub: true,
+
+      }
     })
-      .to('.rectangles_clone', {
-        display: 'block',
-        duration: 0,
-
-      }, 'show')
-      .to('.rectangles', {
-        display: 'none',
-        duration: 0,
-
-      }, 'show')
-      .to('.page-wrapper', {
-        backgroundColor: '#7E3AF9'
-      })
-      .to('.rectangle-clone', {
-        backgroundColor: 'rgba(242, 235, 254, 0.06)',
-        ease: 'sine.inOut',
-      }, 'show')
-
-      .to('.rectangle-clone.first', {
-        height: Math.floor(Math.random() * (35 - 5 + 1)) + 5 + '%',
-        borderRadius: '0rem',
-        ease: 'sine.inOut',
-        duration: 3,
-      })
-      .to('.rectangle-clone.second', {
-        height: Math.floor(Math.random() * (35 - 5 + 1)) + 5 + '%',
-        borderRadius: '0rem',
-        ease: 'sine.inOut',
-        duration: 3,
-      })
-      .to('.rectangle-clone.third', {
-        height: Math.floor(Math.random() * (35 - 5 + 1)) + 5 + '%',
-        borderRadius: '50rem',
-        ease: 'sine.inOut',
-        duration: 3,
-      })
+    tl.to(deductionCamera.position, {
+      x: -2,
+      y: 3,
+      z: 3,
+      duration: .3,
+      ease: easeOut,
+    })
 
 
-
-
-    return tl
   }
 
   let master = gsap.timeline()
-  master.add(Hero()).add(PinText()).add(SwitchRectangles())
+  master.add(Hero()).add(PinText()).add(Info())
+
+
+
 
 }
+
 
