@@ -189,7 +189,7 @@ export function initHome() {
       gsap.to($('.tooltip'), {
         scale: 1,
         duration: .6,
-        ease: easeOut,
+        ease: 'ease.circle.inOut',
       })
       gsap.to('.work-bg', {
         scale: 1.01,
@@ -214,11 +214,12 @@ export function initHome() {
 
     $('.works-cms').each(function () {
       let hovered = 0
-      console.log(hovered);
-      let tl = gsap.timeline({ paused: true })
-      tl.set('.work-title .char', {
+      gsap.set('.work-title .char', {
         y: '-100%',
       })
+      console.log(hovered);
+      let tl = gsap.timeline({ paused: true })
+
       tl.to($(this).find('.work-title .char'), {
         y: '0%',
         stagger: { amount: 0.4 },
@@ -248,8 +249,8 @@ export function initHome() {
 
       gsap.to($('.tooltip'), {
         scale: 0,
-        duration: 0.15,
-        ease: 'sine.out',
+        duration: 0.35,
+        ease: 'ease.circle.out',
       })
 
 
@@ -274,7 +275,7 @@ export function initHome() {
       scrollTrigger: {
         trigger: '.section_info',
         start: 'top top',
-        end: '+=150%',
+        end: '+=300%',
 
         scrub: true,
 
