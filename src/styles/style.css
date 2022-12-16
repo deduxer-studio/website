@@ -96,7 +96,7 @@ body {
 
 
 .work-bg:hover {
-  transform: scale(1.06) !important;
+  transform: scale(1.06);
 }
 
 /* 
