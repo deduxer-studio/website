@@ -70,10 +70,10 @@ export function initHome() {
   function Indicator() {
     let tl = gsap.timeline({
       scrollTrigger: {
-        trigger: '.page-wrapper',
+        trigger: '.main-wrapper',
         start: 'top top',
-        endTrigger: '.page-wrapper',
-        end: '+=' + document.querySelector('.page-wrapper').offsetHeight,
+        endTrigger: '.main-wrapper',
+        end: '+=' + document.querySelector('.main-wrapper').offsetHeight,
         scrub: true,
         onUpdate: self => {
           //check if element is in view
@@ -391,7 +391,7 @@ export function initHome() {
   function Clients() {
     let swiper = new Swiper('.clients-slider', {
       // Optional parameters
-      effect: 'fade',
+      speed: 1500,
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',

@@ -127,6 +127,10 @@ export function initPageTransition() {
       duration: 1.5,
       ease: 'power2.inOut',
     }, 'same')
+    tl.set('.loader', {
+      display: 'none',
+      duration: 0,
+    })
 
 
   }

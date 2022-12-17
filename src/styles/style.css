@@ -35,11 +35,14 @@ html {
   overflow-y: hidden;
 }
 
+.swiper-slide .line {
+  overflow-y: hidden;
+}
+
 .swiper-slide .word {
-  transform: translateY(100%);
-  transition-delay: 200ms;
-  transition-duration: 1500ms;
-  transition: ease-in-out .6s;
+  transform: translateY(-100%);
+  transition-delay: 0ms;
+  transition-duration: 450ms;
 }
 
 .swiper-slide-active .word {
@@ -51,38 +54,34 @@ html {
 
 
 .swiper-slide .client-image {
-  opacity: 0;
-  transform: scale(.6);
+  transform: scale(0);
   transition: cubic-bezier(.74, .02, .44, .78) 1s all;
 }
 
 .swiper-slide-active .client-image {
-  opacity: 100;
+
   transition-duration: 650ms;
   transition-delay: 250ms;
   transform: scale(1)
 }
 
-.swiper-slide .client-name {
-  transform: translateY(60%);
-  opacity: 0;
-
-}
-
-.swiper-slide-active .client-name {
-  transform: translateY(0%);
-  opacity: 100;
-  transition-delay: 200ms;
-  transition-duration: 650ms;
-
-}
-
-
+.swiper-slide .client-name,
 .swiper-slide .client-job {
-  transform: translateY(40%);
+  transform: translateY(-100%);
   opacity: 0;
 
 }
+
+.swiper-slide-active .client-name,
+.swiper-slide-active .client-job {
+  transform: translateY(0);
+  opacity: 100;
+  transition-delay: 300ms;
+  transition-duration: 450ms;
+
+}
+
+
 
 .letter-wrap {
   display: inline-block;
