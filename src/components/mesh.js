@@ -36,7 +36,7 @@ export function initMesh() {
       zoom: currentZoom,
     },
     {
-      zoom: 45,
+      zoom: 12,
       delay: 3.2,
     },
     'client'
