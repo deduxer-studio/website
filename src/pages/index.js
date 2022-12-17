@@ -3,15 +3,14 @@ import { gsap } from 'gsap'
 // import Draggable from 'gsap/Draggable'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Flip } from 'gsap/all'
-import $, { speed } from 'jquery'
+import $ from 'jquery'
 import SplitType from 'split-type'
 import Swiper from 'swiper';
 import 'swiper/css';
-import { deductionOptions, deductionCamera, deductionHeight, deductionWidth, deductionMesh } from '../components/deduction'
+
 
 
 export function initHome() {
-  console.log(deductionOptions);
   gsap.registerPlugin(ScrollTrigger, Flip);
   // * Easing
   let easeOut = 'power2.inOut'
@@ -24,71 +23,59 @@ export function initHome() {
       tagName: 'divs',
     }
   )
-  let currentWaveCount = deductionOptions.perlin.waves
 
-
-  function MeshMove() {
-    let tl = gsap.timeline({
-      ease: 'Linear.easeNone',
-      scrollTrigger: {
-        trigger: '.page-wrapper',
-        start: 'top top',
-        end: '+=' + document.querySelector('.page-wrapper').offsetHeight,
-        scrub: true,
-        markers: true,
-        onUpdate: self => {
-          // deductionOptions.cam.zoom = self.progress * 8
-          console.log(deductionOptions.cam.zoom, 'lol');
-        }
-      },
-
-
-    })
-
-    tl.to(deductionCamera.position, {
-      x: -4,
-
-
-    }, 'first')
-    tl.to(deductionOptions.perlin, {
-      waves: 10,
-
-
-    }, 'first')
-      .to(deductionOptions.cam, {
-        zoom: 7,
-      }, 'first')
-      .to(deductionCamera.position, {
-        x: 0,
-
-      }, 'same')
-      .to(deductionOptions.cam, {
-        zoom: 1,
-      }, 'same')
-      .to(deductionOptions.cam, {
-        zoom: 8,
-      }, 'last')
-      .to(deductionOptions.perlin, {
-        waves: 3,
-      }, 'last')
-      .to(deductionOptions.cam, {
-        zoom: 50,
-      })
-
-
+  function Links() {
+    const letterWrapClass = 'letter-wrap';
+    const letterWrapElements = document.getElementsByClassName(letterWrapClass);
+    [...letterWrapElements].forEach(el => {
+      letterWrap(el, letterWrapClass);
+      letterAnimation(el, letterWrapClass);
+    });
+    function letterWrap(el, cls) {
+      const words = el.textContent.split(' ');
+      const letters = [];
+      cls = cls || 'letter-wrap'
+      words.forEach(word => {
+        let html = '';
+        for (var letter in word) {
+          html += `
+            <span class="${cls}__char">
+              <span class="${cls}__char-inner" data-letter="${word[letter]}">
+                ${word[letter]}
+              </span>
+            </span>
+          `;
+        };
+        let wrappedWords = `<span class="${cls}__word">${html}</span>`;
+        letters.push(wrappedWords);
+      });
+      return el.innerHTML = letters.join(' ');
+    }
+    function letterAnimation(el, cls) {
+      const tl = gsap.timeline({ paused: true });
+      const characters = el.querySelectorAll(`.${cls}__char-inner`);
+      const duration = el.hasAttribute('data-duration') ? el.dataset.duration : 0.35;
+      const stagger = el.hasAttribute('data-stagger') ? el.dataset.stagger : 0.016;
+      el.animation = tl.to(characters, duration, {
+        y: '-100%',
+        stagger: stagger,
+        ease: 'sine.inOut',
+      }, stagger);
+      el.addEventListener('mouseenter', (event) => event.currentTarget.animation.play());
+      el.addEventListener('mouseout', (event) => el.animation.reverse());
+    }
   }
+
 
   function Indicator() {
     let tl = gsap.timeline({
       scrollTrigger: {
         trigger: '.page-wrapper',
-        markers: true,
         start: 'top top',
         endTrigger: '.page-wrapper',
         end: '+=' + document.querySelector('.page-wrapper').offsetHeight,
         scrub: true,
         onUpdate: self => {
-          console.log(self.progress);
           //check if element is in view
           $('section').each(function (index) {
 
@@ -127,9 +114,27 @@ export function initHome() {
 
       }
     })
-    tl.set('.main_info par .char', {
-      yPercent: 100,
-    })
+
+  }
+
+  function Scruber() {
+
+    $(".main_info").each(function () {
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: $(this),
+          // trigger element - viewport
+          start: "top center",
+          end: "+=120%",
+          scrub: 1
+        }
+      });
+
+      tl.from($(this).find(".word"), {
+        opacity: 0.2,
+        stagger: { amount: 0.8 },
+      });
+    });
 
   }
 
@@ -144,6 +149,7 @@ export function initHome() {
 
       let tl = gsap.timeline({ repeat: -1 });
       tl.set($(this), { opacity: 1 });
+      tl.delay(4);
 
       headings.each(function (index) {
 
@@ -207,37 +213,21 @@ export function initHome() {
       let tl = gsap.timeline({
         scrollTrigger: {
           trigger: $(this),
-          end: '+=110%',
+          end: '+=80%',
           start: 'top top',
           pin: true,
           scrub: true,
         }
       })
-      tl.to($(this), {
-        yPercent: 30,
-      })
-
-    })
-
-
-
-
-
-    $('.info-headings_line').each(function (index) {
-      gsap.set($(this).find('.solution-bg'), {
+      tl.set($(this).find('.solution-bg'), {
         scaleY: 0,
       })
-      gsap.set($(this).find('.heading-solutions .char'), {
+      tl.set($(this).find('.heading-solutions .char'), {
         y: '-100%',
       })
-      let tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: $(this),
-          start: 'top top',
-          end: '+=120%',
-          scrub: true,
-        }
-      });
+      tl.to($(this), {
+        yPercent: 20,
+      }, 'same')
 
       tl.to($(this).find('.solution-bg'), {
         scaleY: 1,
@@ -254,6 +244,7 @@ export function initHome() {
       }, 'same')
 
     })
+
 
     // ScrollTrigger.create({
     //   trigger: '.section_info',
@@ -277,21 +268,9 @@ export function initHome() {
     //   yPercent: -50,
     //   scale: 0
     // });
-    $(window).on('mousemove', function (e) {
-      gsap.to('.tooltip', {
-        duration: 0,
-        overwrite: "auto",
-        x: e.clientX,
-        y: e.clientY,
-        ease: "none"
-      });
-      deductionMesh.position.x = e.clientX / 1500
-      deductionMesh.position.y = e.clientY / -5000
-      currentWaveCount = deductionOptions.perlin.waves
-    })
+
 
     $('[data-tooltip]').on('mouseenter', function () {
-      //get attribute value
       let tooltip = $(this).attr('data-tooltip')
       $('.tooltip-text').text(tooltip)
 
@@ -299,10 +278,22 @@ export function initHome() {
         scale: 1,
         duration: .6,
         ease: 'ease.circle.inOut',
+
       })
-
-
     })
+    $('[data-tooltip]').on('mouseleave', function () {
+      let tooltip = $(this).attr('data-tooltip')
+      $('.tooltip-text').text(tooltip)
+
+      gsap.to($('.tooltip'), {
+        scale: 0,
+        duration: .6,
+        ease: 'ease.circle.inOut',
+
+      })
+    })
+
+
     $('.work-card-bg').each(function (index) {
       $(this).hover(function () {
 
@@ -319,47 +310,32 @@ export function initHome() {
     $('.works-cms').each(function () {
       let hovered = 0
       gsap.set('.work-title .char', {
-        y: '-100%',
+        y: '101%',
       })
-      console.log(hovered);
       let tl = gsap.timeline({ paused: true })
 
       tl.to($(this).find('.work-title .char'), {
         y: '0%',
-        stagger: { amount: 0.4 },
+        stagger: { amount: 0.2 },
         ease: easeOut,
         duration: 0.6,
       })
 
       $(this).on('mouseenter', function () {
         hovered = 1
-        console.log(hovered);
+
         tl.play()
 
       })
       $(this).on('mouseleave', function () {
         hovered = 0
-        console.log(hovered);
         tl.reverse()
 
       })
 
     })
 
-    $('[data-tooltip]').on('mouseleave', function () {
-      //get attribute value
-      let tooltip = $(this).attr('data-tooltip')
-      $('.tooltip-text').text(tooltip)
 
-      gsap.to($('.tooltip'), {
-        scale: 0,
-        duration: 0.35,
-        ease: 'ease.circle.out',
-      })
-
-
-
-    })
 
 
     gsap.from('.main_info .line', {
@@ -396,7 +372,8 @@ export function initHome() {
         trigger: '.section_works',
         start: 'top top',
         scrub: true,
-        end: '+=60%',
+        pin: true,
+        end: '+=40%',
       }
     })
 
@@ -414,7 +391,7 @@ export function initHome() {
   function Clients() {
     let swiper = new Swiper('.clients-slider', {
       // Optional parameters
-      speed: 500,
+      effect: 'fade',
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
@@ -423,20 +400,38 @@ export function initHome() {
     });
 
     $('.swiper-button-next').on('click', function () {
-      console.log('next');
       swiper.slideNext()
     })
     $('.swiper-button-prev').on('click', function () {
-      console.log('prev');
       swiper.slidePrev()
     })
 
 
 
   }
+  function Footer() {
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.component_footer',
+        start: 'top top',
+        pin: true,
+        scrub: true,
+        end: '+=80%',
+      }
+    })
 
+    tl.from('.footer-bg', {
+      scaleX: 1.2,
+      borderRadius: 0,
+      ease: easeOut,
+    })
+  }
+  //document readdy
   let master = gsap.timeline()
-  master.add(Hero()).add(PinText()).add(Info()).add(Works()).add(MeshMove()).add(Indicator()).add(Clients())
+  master.add(Hero()).add(PinText()).add(Info()).add(Works()).add(Indicator()).add(Clients()).add(Footer()).add(Links()).add(Scruber())
+
+
+  console.clear()
 
 
 

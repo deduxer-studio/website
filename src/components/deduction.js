@@ -54,7 +54,6 @@ function onWindowResize() {
   renderer.setSize(_width, _height);
   camera.aspect = _width / _height;
   camera.updateProjectionMatrix();
-  console.log('- resize -');
 }
 //--------------------------------------------------------------------
 var _ambientLights, _lights;
@@ -127,8 +126,8 @@ var options = {
     perlins: 1.0,
     decay: 0.15,
     complex: 0.0,
-    waves: 2.0,
-    eqcolor: 3.0,
+    waves: 4.0,
+    eqcolor: 2.0,
     fragment: false,
     redhell: true
   },
@@ -156,7 +155,6 @@ var primitiveElement = function () {
   mesh = new THREE.Mesh(geo, mat);
   //---
   this.mesh.add(mesh);
-  console.log(mesh);
 }
 var _primitive;
 function createPrimitive() {

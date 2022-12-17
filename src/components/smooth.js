@@ -23,4 +23,16 @@ export function initSmoothScroll() {
     smoothTouch: 0.1,        // much shorter smoothing time on touch devices (default is NO smoothing on touch devices)
   });
 
+  $('.navbar-nav a').each(function () {
+    $(this).on('click', function (e) {
+      e.preventDefault();
+      var target = $(this).attr('href');
+      var targetPos = $(target).offset().top;
+      ScrollSmoother.to(targetPos, {
+        duration: 1,
+        ease: 'power2.out',
+      })
+    })
+  })
+
 }

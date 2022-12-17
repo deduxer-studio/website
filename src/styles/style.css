@@ -44,25 +44,27 @@ html {
 
 .swiper-slide-active .word {
   transform: translateY(0%);
-  transition-delay: 200ms;
-  transition-duration: 1500ms;
-  transition: cubic-bezier(.74, .02, .44, .78) 1s;
+  transition-delay: 400ms;
+  transition-duration: 600ms;
+
 }
 
 
 .swiper-slide .client-image {
-  transform: scale(0);
   opacity: 0;
+  transform: scale(.6);
+  transition: cubic-bezier(.74, .02, .44, .78) 1s all;
 }
 
 .swiper-slide-active .client-image {
-  transform: scale(1);
   opacity: 100;
   transition-duration: 650ms;
+  transition-delay: 250ms;
+  transform: scale(1)
 }
 
 .swiper-slide .client-name {
-  transform: translateY(50%);
+  transform: translateY(60%);
   opacity: 0;
 
 }
@@ -71,22 +73,74 @@ html {
   transform: translateY(0%);
   opacity: 100;
   transition-delay: 200ms;
-  transition-duration: 350ms;
+  transition-duration: 650ms;
 
 }
 
 
 .swiper-slide .client-job {
-  transform: translateY(50%);
+  transform: translateY(40%);
   opacity: 0;
 
+}
+
+.letter-wrap {
+  display: inline-block;
+  position: relative;
+}
+
+.letter-wrap * {
+  pointer-events: none;
+}
+
+.letter-wrap__word {
+  display: inline-flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.letter-wrap__char {
+  display: inline-block;
+  position: relative;
+}
+
+.letter-wrap__char-inner {
+  display: inline-block;
+}
+
+.first .line {
+  position: relative;
+}
+
+.first .line-mask {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #F2EBFE;
+  opacity: 0.65;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+}
+
+
+.letter-wrap__char-inner:after {
+  content: attr(data-letter);
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+[data-link-hover] {
+  position: relative;
+  overflow: hidden;
 }
 
 .swiper-slide-active .client-job {
   transform: translateY(0%);
   opacity: 100;
-  transition-delay: 400ms;
-  transition-duration: 350ms;
+  transition-delay: 200ms;
+  transition-duration: 650ms;
 
 }
 
@@ -96,7 +150,8 @@ html {
   display: none;
 }
 
-.loader,
+
+
 .rectangles.remove-events,
 .works__rectangles {
   display: block;
