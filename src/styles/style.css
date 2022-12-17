@@ -24,6 +24,72 @@ html {
   opacity: 0;
 }
 
+.main_info.par .char {
+  overflow-y: hidden;
+}
+
+/* .testimonial-itself .line:nth-child(1) {
+  transform: translateX('10%');
+} */
+.swiper-slide-active .line {
+  overflow-y: hidden;
+}
+
+.swiper-slide .word {
+  transform: translateY(100%);
+  transition-delay: 200ms;
+  transition-duration: 1500ms;
+  transition: ease-in-out .6s;
+}
+
+.swiper-slide-active .word {
+  transform: translateY(0%);
+  transition-delay: 200ms;
+  transition-duration: 1500ms;
+  transition: cubic-bezier(.74, .02, .44, .78) 1s;
+}
+
+
+.swiper-slide .client-image {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.swiper-slide-active .client-image {
+  transform: scale(1);
+  opacity: 100;
+  transition-duration: 650ms;
+}
+
+.swiper-slide .client-name {
+  transform: translateY(50%);
+  opacity: 0;
+
+}
+
+.swiper-slide-active .client-name {
+  transform: translateY(0%);
+  opacity: 100;
+  transition-delay: 200ms;
+  transition-duration: 350ms;
+
+}
+
+
+.swiper-slide .client-job {
+  transform: translateY(50%);
+  opacity: 0;
+
+}
+
+.swiper-slide-active .client-job {
+  transform: translateY(0%);
+  opacity: 100;
+  transition-delay: 400ms;
+  transition-duration: 350ms;
+
+}
+
 
 
 .rectangles--hide {

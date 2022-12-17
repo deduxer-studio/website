@@ -3,8 +3,10 @@ import { gsap } from 'gsap'
 // import Draggable from 'gsap/Draggable'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Flip } from 'gsap/all'
-import $ from 'jquery'
+import $, { speed } from 'jquery'
 import SplitType from 'split-type'
+import Swiper from 'swiper';
+import 'swiper/css';
 import { deductionOptions, deductionCamera, deductionHeight, deductionWidth, deductionMesh } from '../components/deduction'
 
 
@@ -19,13 +21,117 @@ export function initHome() {
     '[text-split], .heading-hero, .hero-content_block, .info__headings-itself, .work-title',
     {
       types: 'words, chars, lines',
-      tagName: 'span',
+      tagName: 'divs',
     }
   )
   let currentWaveCount = deductionOptions.perlin.waves
 
 
+  function MeshMove() {
+    let tl = gsap.timeline({
+      ease: 'Linear.easeNone',
+      scrollTrigger: {
+        trigger: '.page-wrapper',
+        start: 'top top',
+        end: '+=' + document.querySelector('.page-wrapper').offsetHeight,
+        scrub: true,
+        markers: true,
+        onUpdate: self => {
+          // deductionOptions.cam.zoom = self.progress * 8
+          console.log(deductionOptions.cam.zoom, 'lol');
+        }
+      },
 
+
+    })
+
+    tl.to(deductionCamera.position, {
+      x: -4,
+
+
+    }, 'first')
+    tl.to(deductionOptions.perlin, {
+      waves: 10,
+
+
+    }, 'first')
+      .to(deductionOptions.cam, {
+        zoom: 7,
+      }, 'first')
+      .to(deductionCamera.position, {
+        x: 0,
+
+      }, 'same')
+      .to(deductionOptions.cam, {
+        zoom: 1,
+      }, 'same')
+      .to(deductionOptions.cam, {
+        zoom: 8,
+      }, 'last')
+      .to(deductionOptions.perlin, {
+        waves: 3,
+      }, 'last')
+      .to(deductionOptions.cam, {
+        zoom: 50,
+      })
+
+
+  }
+
+  function Indicator() {
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.page-wrapper',
+        markers: true,
+        start: 'top top',
+        endTrigger: '.page-wrapper',
+        end: '+=' + document.querySelector('.page-wrapper').offsetHeight,
+        scrub: true,
+        onUpdate: self => {
+          console.log(self.progress);
+          //check if element is in view
+          $('section').each(function (index) {
+
+            //check if this section is in view
+            if (
+              $(this).offset().top < $(window).scrollTop() + $(window).height() &&
+              $(this).offset().top + $(this).height() > $(window).scrollTop()
+            ) {
+
+              //add class to section
+              $(this).addClass('active');
+              $('.indicator-block').removeClass('active')
+              $('.indicator-block').eq(index).addClass('active')
+              //remove class from section
+              $(this).siblings().removeClass('active');
+            }
+          })
+
+
+          $(".marquee").each(function (index) {
+            let track = $(this).find(".marquee_track");
+            let items = $(this).find(".marquee_item");
+            let tl = gsap.timeline({ repeat: -1, defaults: { ease: "expo.inOut", duration: 1, delay: 1 } });
+
+            items.each(function (index) {
+              let distance = (index + 1) * -100;
+              tl.to(track, { yPercent: distance });
+            });
+
+            items.first().clone().appendTo(track);
+          });
+
+
+
+        }
+
+      }
+    })
+    tl.set('.main_info par .char', {
+      yPercent: 100,
+    })
+
+  }
 
   function Hero() {
     $(".heading-wrap").each(function (index) {
@@ -65,7 +171,7 @@ export function initHome() {
         });
 
         Flip.from(state, {
-          absolute: true, // uses position: absolute during the flip to work around flexbox challenges
+          absolute: true,
           duration: 1,
           stagger: 0.03,
           ease: easeOut
@@ -93,7 +199,6 @@ export function initHome() {
 
 
   }
-
 
   function PinText() {
 
@@ -150,18 +255,18 @@ export function initHome() {
 
     })
 
-    ScrollTrigger.create({
-      trigger: '.section_info',
-      start: 'top top',
-      end: '+=450%',
+    // ScrollTrigger.create({
+    //   trigger: '.section_info',
+    //   start: 'top top',
+    //   end: '+=450%',
 
-      scrub: true,
-      onUpdate: self => {
-        currentWaveCount = self.progress * 22
-        deductionOptions.cam.zoom = self.progress * 5
+    //   scrub: true,
+    //   onUpdate: self => {
+    //     currentWaveCount = self.progress * 22
+    //     deductionOptions.cam.zoom = self.progress * 5
 
-      }
-    })
+    //   }
+    // })
 
 
 
@@ -180,9 +285,8 @@ export function initHome() {
         y: e.clientY,
         ease: "none"
       });
-      deductionMesh.position.x = e.clientX / 2000
-      deductionMesh.position.y = e.clientY / 3000
-      deductionOptions.perlin.waves = e.clientX / 350
+      deductionMesh.position.x = e.clientX / 1500
+      deductionMesh.position.y = e.clientY / -5000
       currentWaveCount = deductionOptions.perlin.waves
     })
 
@@ -281,16 +385,11 @@ export function initHome() {
 
       }
     })
-    tl.to(deductionCamera.position, {
-      x: -2.5,
-      y: 3,
-      z: 3,
-      duration: .3,
-      ease: easeOut,
-    })
+
 
 
   }
+
   function Works() {
     let tl = gsap.timeline({
       scrollTrigger: {
@@ -311,8 +410,33 @@ export function initHome() {
 
 
   }
+
+  function Clients() {
+    let swiper = new Swiper('.clients-slider', {
+      // Optional parameters
+      speed: 500,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      }
+      // change slides speed
+    });
+
+    $('.swiper-button-next').on('click', function () {
+      console.log('next');
+      swiper.slideNext()
+    })
+    $('.swiper-button-prev').on('click', function () {
+      console.log('prev');
+      swiper.slidePrev()
+    })
+
+
+
+  }
+
   let master = gsap.timeline()
-  master.add(Hero()).add(PinText()).add(Info()).add(Works())
+  master.add(Hero()).add(PinText()).add(Info()).add(Works()).add(MeshMove()).add(Indicator()).add(Clients())
 
 
 

@@ -138,7 +138,7 @@ var options = {
     b_color: 0.10
   },
   cam: {
-    zoom: 7
+    zoom: 2
   }
 }
 

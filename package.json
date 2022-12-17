@@ -30,6 +30,7 @@
     "gsap": "^3.11.3",
     "locomotive-scroll": "^4.1.4",
     "split-type": "^0.3.3",
+    "swiper": "^8.4.5",
     "three": "^0.89.0"
   }
 }
