@@ -1,3 +1,4 @@
+/* eslint-disable */
 import './styles/style.css'
 // import all code from components smooth
 import { initPageTransition } from './components/barba'

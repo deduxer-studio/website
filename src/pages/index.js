@@ -17,7 +17,7 @@ export function initHome() {
 
   // * Text Split
   new SplitType(
-    '[text-split], .heading-hero, .hero-content_block, .info__headings-itself, .work-title',
+    '[text-split], .heading-hero, .hero-content_block, .info__headings-itself, .work-title, .letter-wrap',
     {
       types: 'words, chars, lines',
       tagName: 'divs',
@@ -25,45 +25,57 @@ export function initHome() {
   )
 
   function Links() {
-    const letterWrapClass = 'letter-wrap';
-    const letterWrapElements = document.getElementsByClassName(letterWrapClass);
-    [...letterWrapElements].forEach(el => {
-      letterWrap(el, letterWrapClass);
-      letterAnimation(el, letterWrapClass);
+
+    function getRandomLetter(length) {
+      var result = "";
+      var characters = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()_+{}|:<>?";
+      var charactersLength = characters.length;
+      for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      return result;
+    }
+
+    $(".char").each(function (index) {
+      let text = $(this).text();
+      $(this).attr("letter", text);
     });
-    function letterWrap(el, cls) {
-      const words = el.textContent.split(' ');
-      const letters = [];
-      cls = cls || 'letter-wrap'
-      words.forEach(word => {
-        let html = '';
-        for (var letter in word) {
-          html += `
-            <span class="${cls}__char">
-              <span class="${cls}__char-inner" data-letter="${word[letter]}">
-                ${word[letter]}
-              </span>
-            </span>
-          `;
-        };
-        let wrappedWords = `<span class="${cls}__word">${html}</span>`;
-        letters.push(wrappedWords);
+
+    $(".letter-wrap").each(function (index) {
+      function resetText() {
+        if (myInterval !== undefined) {
+          clearInterval(myInterval);
+        }
+        chars.each(function (index) {
+          let letter = $(this).attr("letter");
+          $(this).text(letter);
+        });
+      }
+
+      let myInterval;
+      let chars = $(this).find(".char");
+      $(this).on("mouseenter", function () {
+        let length = chars.length;
+        myInterval = setInterval(function () {
+          chars.each(function (index) {
+            if (index < length) {
+              let letter = getRandomLetter(1);
+              $(this).text(letter);
+            } else {
+              let letter = $(this).attr("letter");
+              $(this).text(letter);
+            }
+          });
+          length = length - 1;
+        }, 100);
+        setTimeout(() => {
+          resetText();
+        }, 600);
       });
-      return el.innerHTML = letters.join(' ');
-    }
-    function letterAnimation(el, cls) {
-      const tl = gsap.timeline({ paused: true });
-      const characters = el.querySelectorAll(`.${cls}__char-inner`);
-      const duration = el.hasAttribute('data-duration') ? el.dataset.duration : 0.35;
-      const stagger = el.hasAttribute('data-stagger') ? el.dataset.stagger : 0.016;
-      el.animation = tl.to(characters, duration, {
-        y: '-100%',
-        stagger: stagger,
-        ease: 'sine.inOut',
-      }, stagger);
-      el.addEventListener('mouseenter', (event) => event.currentTarget.animation.play());
-      el.addEventListener('mouseout', (event) => el.animation.reverse());
-    }
+      $(this).on("mouseleave", function () {
+        resetText();
+      });
+    });
   }
 
 
