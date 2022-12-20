@@ -15,13 +15,14 @@ export function initSmoothScroll() {
 
   //init smooth scroll
   gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
+  if (window.innerWidth > 768) {
+    ScrollSmoother.create({
+      smooth: 1.5,
+      wrapper: '[smooth-wrapper]',        // how long (in seconds) it takes to "catch up" to the native scroll position
+      effects: true,
+    });
+  }
 
-  ScrollSmoother.create({
-    smooth: 1,
-    wrapper: '[smooth-wrapper]',        // how long (in seconds) it takes to "catch up" to the native scroll position
-    effects: true,           // looks for data-speed and data-lag attributes on elements
-    smoothTouch: 0.3,        // much shorter smoothing time on touch devices (default is NO smoothing on touch devices)
-  });
 
   $('.navbar-nav a').each(function () {
     $(this).on('click', function (e) {
