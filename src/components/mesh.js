@@ -139,8 +139,8 @@ export function initMesh() {
       waves: 0.15,
     }, {
       decay: 0.22,
-      waves: 6,
-    }, 'clients')
+      waves: 0.22,
+    })
     tl.fromTo(deductionOptions.cam, {
       zoom: 50,
     }, {
