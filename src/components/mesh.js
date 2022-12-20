@@ -12,7 +12,7 @@ export function initMesh() {
     scrollTrigger: {
       trigger: '.page-wrapper',
       start: 'top top',
-      end: '+=' + document.querySelector('.main-wrapper').offsetHeight,
+      end: '+=' + document.querySelector('.page-wrapper').offsetHeight,
       scrub: true,
       onUpdate: (self) => {
         currentZoom = deductionOptions.cam.zoom
@@ -118,7 +118,7 @@ export function initMesh() {
       scrollTrigger: {
         trigger: '.page-wrapper',
         start: 'top top',
-        end: '+=' + document.querySelector('body').offsetHeight,
+        end: '+=' + document.querySelector('.page-wrapper').offsetHeight,
         scrub: true,
         onUpdate: (self) => {
           currentZoom = deductionOptions.cam.zoom
