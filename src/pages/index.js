@@ -486,7 +486,7 @@ export function initHome() {
 
   if (window.innerWidth < 1024) {
     let master = gsap.timeline()
-    master.add(HeroMobile()).add(Clients()).add(Links())
+    master.add(HeroMobile()).add(Clients()).add(Links()).add(PinText())
 
   }
 
