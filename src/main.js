@@ -8,7 +8,6 @@ import { initSmoothScroll } from './components/smooth'
 import { initHome } from './pages/index'
 import { initMobile } from './pages/indexMobile'
 
-initSmoothScroll()
 initPageTransition()
 
 window.addEventListener('load', initDeduction, false)
@@ -18,6 +17,7 @@ if (window.innerWidth < 768) {
   initMobile()
 }
 else {
+  initSmoothScroll()
   initHome()
 
 }
