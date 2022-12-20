@@ -6,10 +6,20 @@ import { initDeduction } from './components/deduction'
 import { initMesh } from './components/mesh'
 import { initSmoothScroll } from './components/smooth'
 import { initHome } from './pages/index'
+import { initMobile } from './pages/indexMobile'
 
 initSmoothScroll()
 initPageTransition()
 
 window.addEventListener('load', initDeduction, false)
-initHome()
+//check mobile
 initMesh()
+if (window.innerWidth < 768) {
+  initMobile()
+}
+else {
+  initHome()
+
+}
+
+

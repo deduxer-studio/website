@@ -2,18 +2,15 @@
 import { gsap } from 'gsap'
 // import Draggable from 'gsap/Draggable'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Flip } from 'gsap/all'
 import $ from 'jquery'
 import SplitType from 'split-type'
 import Swiper from 'swiper';
 import 'swiper/css';
 
-
-
-export function initHome() {
-  gsap.registerPlugin(ScrollTrigger, Flip);
+export function initMobile() {
+  gsap.registerPlugin(ScrollTrigger);
   // * Easing
-  let easeOut = 'power2.inOut'
+  let easeOut = 'power3.inOut'
 
   // * Text Split
   new SplitType(
@@ -24,6 +21,44 @@ export function initHome() {
     }
   )
 
+  function HeroMobile() {
+    $(".heading-wrap").each(function (index) {
+      let headings = $(this).find(".heading-hero");
+      headings.each(function () {
+        gsap.set($(this), {
+          opacity: 1,
+        });
+      });
+
+      let tl = gsap.timeline({ repeat: -1 });
+      tl.set($(this), { opacity: 1 });
+      tl.delay(4);
+
+      headings.each(function (index) {
+
+        if (index > 0) {
+          tl.from($(this).find(".char"), { yPercent: 100, stagger: { amount: 0.25 }, duration: 1, ease: easeOut }, "<0.1");
+        }
+        if (index < headings.length - 1) {
+          tl.to($(this).find(".char"), { delay: 0.3, yPercent: -100, stagger: { amount: 0.2 }, duration: 0.8, ease: easeOut });
+        }
+      });
+    });
+
+    let tl = gsap.timeline({})
+    tl.delay(3.5);
+    tl.set('.hero-content_block .line', {
+      overflow: 'hidden',
+    })
+    tl.from('.hero-content_block .char', {
+      yPercent: 100,
+      stagger: { amount: 0.8 },
+      ease: easeOut,
+      duration: 1.5,
+
+    })
+    return tl
+  }
   function Clients() {
     let swiper = new Swiper('.clients-slider', {
       // Optional parameters
@@ -262,190 +297,15 @@ export function initHome() {
     });
   }
 
-  function Indicator() {
-    let tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.main-wrapper',
-        start: 'top top',
-        endTrigger: '.main-wrapper',
-        end: '+=' + document.querySelector('.main-wrapper').offsetHeight,
-        scrub: true,
-        onUpdate: self => {
-          //check if element is in view
-          $('section').each(function (index) {
-
-            //check if this section is in view
-            if (
-              $(this).offset().top < $(window).scrollTop() + $(window).height() &&
-              $(this).offset().top + $(this).height() > $(window).scrollTop()
-            ) {
-
-              //add class to section
-              $(this).addClass('active');
-              $('.indicator-block').removeClass('active')
-              $('.indicator-block').eq(index).addClass('active')
-              //remove class from section
-              $(this).siblings().removeClass('active');
-            }
-          })
-
-
-          $(".marquee").each(function (index) {
-            let track = $(this).find(".marquee_track");
-            let items = $(this).find(".marquee_item");
-            let tl = gsap.timeline({ repeat: -1, defaults: { ease: "expo.inOut", duration: 1, delay: 1 } });
-
-            items.each(function (index) {
-              let distance = (index + 1) * -100;
-              tl.to(track, { yPercent: distance });
-            });
-
-            items.first().clone().appendTo(track);
-          });
-
-
-
-        }
-
-      }
-    })
-
-  }
-
-
-
-  function Hero() {
-    $(".heading-wrap").each(function (index) {
-      let headings = $(this).find(".heading-hero");
-      headings.each(function () {
-        gsap.set($(this), {
-          opacity: 1,
-        });
-      });
-
-      let tl = gsap.timeline({ repeat: -1 });
-      tl.set($(this), { opacity: 1 });
-      tl.delay(4);
-
-      headings.each(function (index) {
-
-        if (index > 0) {
-          tl.from($(this).find(".char"), { yPercent: 100, stagger: { amount: 0.2 }, duration: 1, ease: easeOut }, "<0.1");
-        }
-        if (index < headings.length - 1) {
-          tl.to($(this).find(".char"), { delay: 0.5, yPercent: -100, stagger: { amount: 0.2 }, duration: 0.8, ease: easeOut });
-        }
-      });
-    });
-
-    let tl = gsap.timeline()
-    tl.from('.hero-content-row', {
-      opacity: 0,
-      yPercent: 100,
-      stagger: { amount: 0.2 },
-      duration: 1,
-      //add class on timeline end
-      onComplete: function () {
-        const state = Flip.getState(".hero-content-row, .hero-content_block");
-        $(".hero-content-row").each(function (index) {
-          $(this).addClass("active");
-
-        });
-
-        Flip.from(state, {
-          absolute: true,
-          duration: 1,
-          stagger: 0.03,
-          ease: easeOut
-          // you can use any other tweening properties here too, like onComplete, onUpdate, delay, etc. 
-        });
-      },
-      ease: easeOut,
-    })
-      .from('.navbar', {
-        scaleY: 0,
-        ease: easeOut,
-        duration: 1,
-        transformOrigin: 'bottom',
-      })
-      .from('.navbar-logo', {
-        opacity: 0,
-      }, '<0.5')
-      .from('.navbar-navigation_link', {
-        opacity: 0,
-        yPercent: 100,
-        ease: easeOut,
-        duration: 1,
-        stagger: { amount: 0.2 },
-      }, '<0.2')
-
-
-  }
-
-
-  function Info() {
-    //scrolltrigger till end of section 
-    let tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.section_info',
-        start: 'top top',
-        end: '+=300%',
-
-        scrub: true,
-
-      }
-    })
-
-
-
-  }
-
-  function Works() {
-    let tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.section_works',
-        start: 'top top',
-        scrub: true,
-        pin: true,
-        end: '+=40%',
-      }
-    })
-
-    tl.to('.background-works', {
-      width: '100%',
-      height: '100%',
-      borderRadius: 0,
-      ease: easeOut,
-    })
-
-
-
-  }
-
-
-  function Footer() {
-    let tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.component_footer',
-        start: 'top top',
-        pin: true,
-        scrub: true,
-        end: '+=80%',
-      }
-    })
-
-    tl.from('.footer-bg', {
-      scaleX: 1.2,
-      borderRadius: 0,
-      ease: easeOut,
-    })
-  }
-
 
   let master = gsap.timeline()
-  master.add(Hero()).add(PinText()).add(Info()).add(Works()).add(Indicator()).add(Clients()).add(Footer()).add(Links()).add(Scruber())
-  console.log('Loaded Desktop');
+  master.add(HeroMobile()).add(Clients()).add(Links()).add(PinText()).add(Scruber())
+
+
+
+  console.clear()
+  console.log('Loaded Mobile');
+
+
+
 }
-
-
-
