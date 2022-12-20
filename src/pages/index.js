@@ -23,7 +23,7 @@ export function initHome() {
       tagName: 'divs',
     }
   )
-
+  //desktop 
   function Links() {
 
     function getRandomLetter(length) {
@@ -217,7 +217,6 @@ export function initHome() {
 
 
   }
-
   function PinText() {
 
 
@@ -438,9 +437,58 @@ export function initHome() {
       ease: easeOut,
     })
   }
+
+  function HeroMobile() {
+    $(".heading-wrap").each(function (index) {
+      let headings = $(this).find(".heading-hero");
+      headings.each(function () {
+        gsap.set($(this), {
+          opacity: 1,
+        });
+      });
+
+      let tl = gsap.timeline({ repeat: -1 });
+      tl.set($(this), { opacity: 1 });
+      tl.delay(4);
+
+      headings.each(function (index) {
+
+        if (index > 0) {
+          tl.from($(this).find(".char"), { yPercent: 100, stagger: { amount: 0.25 }, duration: 1, ease: easeOut }, "<0.1");
+        }
+        if (index < headings.length - 1) {
+          tl.to($(this).find(".char"), { delay: 0.3, yPercent: -100, stagger: { amount: 0.2 }, duration: 0.8, ease: easeOut });
+        }
+      });
+    });
+
+    let tl = gsap.timeline({})
+    tl.delay(3.5);
+    tl.set('.hero-content_block .line', {
+      overflow: 'hidden',
+    })
+    tl.from('.hero-content_block .char', {
+      yPercent: 100,
+      stagger: { amount: 0.8 },
+      ease: easeOut,
+      duration: 1.5,
+
+    })
+    return tl
+  }
   //document readdy
-  let master = gsap.timeline()
-  master.add(Hero()).add(PinText()).add(Info()).add(Works()).add(Indicator()).add(Clients()).add(Footer()).add(Links()).add(Scruber())
+  //if desktop
+  if (window.innerWidth > 1024) {
+    let master = gsap.timeline()
+    master.add(Hero()).add(PinText()).add(Info()).add(Works()).add(Indicator()).add(Clients()).add(Footer()).add(Links()).add(Scruber())
+
+  }
+
+  if (window.innerWidth < 1024) {
+    let master = gsap.timeline()
+    master.add(HeroMobile()).add(Clients()).add(Links())
+
+  }
 
 
   console.clear()
