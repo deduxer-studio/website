@@ -37,6 +37,7 @@ function createWorld() {
   //---
   camera = new THREE.PerspectiveCamera(35, _width / _height, 1, 1000);
   camera.position.set(3, 1, 10);
+
   //---
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setClearColor(0x000000, 0); // the default
@@ -139,6 +140,30 @@ var options = {
   cam: {
     zoom: 2
   }
+}
+if (window.innerWidth < 768) {
+  options = {
+    perlin: {
+      vel: 0.002,
+      speed: 0.0004,
+      perlins: 1.0,
+      decay: 0.15,
+      complex: 0.0,
+      waves: 4.0,
+      eqcolor: 2.0,
+      fragment: false,
+      redhell: true
+    },
+    rgb: {
+      r_color: 0.6,
+      g_color: 0.8,
+      b_color: 0.10
+    },
+    cam: {
+      zoom: 20
+    }
+  }
+
 }
 
 let mesh
