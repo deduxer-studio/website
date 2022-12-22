@@ -23,7 +23,7 @@ export function initMesh() {
 
   if (window.innerWidth > 768) {
 
-
+    deductionCamera.position.x = -3
 
 
     tl.to(
@@ -45,7 +45,7 @@ export function initMesh() {
         zoom: 12,
         delay: 3.2,
       },
-      'client'
+      'first'
     )
     tl.to(
       deductionCamera.position,
@@ -55,26 +55,28 @@ export function initMesh() {
       },
       'client'
     )
-    tl.fromTo(
-      deductionOptions.perlin,
-      {
-        decay: currentDecay,
+
+    ScrollTrigger.create({
+      trigger: '.section_clients',
+      start: 'top top',
+      end: '+=40%',
+      scrub: true,
+      onUpdate: (self) => {
+        deductionOptions.cam.zoom = Math.min(self.progress * 40, 40)
+        console.log(deductionOptions.cam.zoom);
       },
-      {
-        delay: 3.4,
-        decay: 0.22,
+    })
+    ScrollTrigger.create({
+      trigger: '.component_footer',
+      start: 'top top',
+      end: '+=50%',
+      scrub: true,
+      onUpdate: (self) => {
+        deductionOptions.cam.zoom = Math.min(self.progress * 2, 2)
+        console.log(deductionOptions.cam.zoom);
       },
-      'client'
-    ).fromTo(
-      deductionOptions.cam,
-      {
-        zoom: currentZoom,
-      },
-      {
-        zoom: 2,
-      },
-      'footer'
-    )
+    })
+
 
     // window on mouse move vanilla js
     window.addEventListener('mousemove', function (e) {
@@ -92,7 +94,7 @@ export function initMesh() {
     return tl
   }
   else {
-    deductionCamera.position.x = 0
+    deductionCamera.position.x = -2
     deductionCamera.position.y = 0
     ScrollTrigger.create({
       trigger: '.section_clients',
@@ -133,10 +135,10 @@ export function initMesh() {
     }, 'first')
     tl.fromTo(deductionCamera.position, {
       y: 0,
-      x: 0,
+      x: -2,
     }, {
       y: 2,
-      x: -3,
+      x: -1,
     }, 'first')
     // tl.fromTo(deductionCamera.position, {
     //   y: 2,

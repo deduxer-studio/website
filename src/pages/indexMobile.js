@@ -81,6 +81,37 @@ export function initMobile() {
 
   }
 
+  function PinText() {
+    $('.info-block').each(function () {
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: $(this),
+          start: 'top center',
+          end: '+=100%',
+          pin: true,
+          scrub: 1,
+        },
+      })
+      $(this).find('.solution-block').each(function (index) {
+        tl.to($(this), {
+          // index y perc
+          xPercent: -index * 100,
+          stagger: { amount: 0.2 },
+        })
+        //reduce opacity for previous block
+        if (index > 0 && !index == $(this).length - 1) {
+          tl.to($(this).prev(), {
+            opacity: 0.2,
+          })
+        }
+        //is last
+      })
+      return tl
+
+
+    })
+  }
+
   function Scruber() {
 
     $(".main_info").each(function () {
