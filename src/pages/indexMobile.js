@@ -22,42 +22,39 @@ export function initMobile() {
   )
 
   function HeroMobile() {
-    $(".heading-wrap").each(function (index) {
-      let headings = $(this).find(".heading-hero");
-      headings.each(function () {
-        gsap.set($(this), {
-          opacity: 1,
-        });
-      });
-
-      let tl = gsap.timeline({ repeat: -1 });
-      tl.set($(this), { opacity: 1 });
-      tl.delay(4);
-
-      headings.each(function (index) {
-
-        if (index > 0) {
-          tl.from($(this).find(".char"), { yPercent: 100, stagger: { amount: 0.25 }, duration: 1, ease: easeOut }, "<0.1");
-        }
-        if (index < headings.length - 1) {
-          tl.to($(this).find(".char"), { delay: 0.3, yPercent: -100, stagger: { amount: 0.2 }, duration: 0.8, ease: easeOut });
-        }
-      });
-    });
-
-    let tl = gsap.timeline({})
-    tl.delay(3.5);
-    tl.set('.hero-content_block .line', {
-      overflow: 'hidden',
-    })
-    tl.from('.hero-content_block .char', {
+    let tl = gsap.timeline()
+    tl.delay(4)
+    gsap.set('.intro-heading_itself .char', {
       yPercent: 100,
-      stagger: { amount: 0.8 },
+    })
+
+    tl.to('.intro-heading_itself .char', {
+      yPercent: 0,
+      stagger: '0.018',
       ease: easeOut,
-      duration: 1.5,
+      duration: 1.2,
 
     })
-    return tl
+
+      .from('.navbar', {
+        yPercent: -100,
+        ease: easeOut,
+        duration: .6,
+      })
+
+    gsap.set('.main-paragraph .word', {
+      yPercent: -100,
+    })
+    gsap.to('.main-paragraph .word', {
+      stagger: { amount: 0.2 },
+      yPercent: 0,
+      duration: .6,
+      scrollTrigger: {
+        trigger: '.main-paragraph',
+        start: 'top 70%',
+        toggleActions: 'play complete reverse reverse',
+      }
+    })
   }
   function Clients() {
     let swiper = new Swiper('.clients-slider', {
@@ -87,17 +84,18 @@ export function initMobile() {
         scrollTrigger: {
           trigger: $(this),
           start: 'top top',
-          end: '+=100%',
+          end: '+=150%',
           pin: true,
           scrub: 1,
         },
-      })
+      }, 'same')
+
       $(this).find('.solution-block').each(function (index) {
         tl.to($(this), {
           // index y perc
           xPercent: -index * 100,
           ease: 'sine.in',
-          stagger: { amount: 0.2 },
+          stagger: { amount: 0.1 },
         })
         //reduce opacity for previous block
         if (index > 0 && !index == $(this).length - 1) {
@@ -105,6 +103,15 @@ export function initMobile() {
             opacity: 0.2,
           })
         }
+        //is last
+      })
+
+      $(this).find('.info-block_divider').each(function (index) {
+        tl.to($(this), {
+          // index y perc
+          width: '100%',
+          ease: 'sine.in',
+        }, 0)
         //is last
       })
       return tl

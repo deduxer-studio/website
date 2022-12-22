@@ -315,70 +315,40 @@ export function initHome() {
 
 
   function Hero() {
-    $(".heading-wrap").each(function (index) {
-      let headings = $(this).find(".heading-hero");
-      headings.each(function () {
-        gsap.set($(this), {
-          opacity: 1,
-        });
-      });
-
-      let tl = gsap.timeline({ repeat: -1 });
-      tl.set($(this), { opacity: 1 });
-      tl.delay(4);
-
-      headings.each(function (index) {
-
-        if (index > 0) {
-          tl.from($(this).find(".char"), { yPercent: 100, stagger: { amount: 0.2 }, duration: 1, ease: easeOut }, "<0.1");
-        }
-        if (index < headings.length - 1) {
-          tl.to($(this).find(".char"), { delay: 0.5, yPercent: -100, stagger: { amount: 0.2 }, duration: 0.8, ease: easeOut });
-        }
-      });
-    });
 
     let tl = gsap.timeline()
-    tl.from('.hero-content-row', {
-      opacity: 0,
+    tl.delay(4)
+    gsap.set('.intro-heading_itself .char', {
       yPercent: 100,
-      stagger: { amount: 0.2 },
-      duration: 1,
-      //add class on timeline end
-      onComplete: function () {
-        const state = Flip.getState(".hero-content-row, .hero-content_block");
-        $(".hero-content-row").each(function (index) {
-          $(this).addClass("active");
-
-        });
-
-        Flip.from(state, {
-          absolute: true,
-          duration: 1,
-          stagger: 0.03,
-          ease: easeOut
-          // you can use any other tweening properties here too, like onComplete, onUpdate, delay, etc. 
-        });
-      },
-      ease: easeOut,
     })
-      .from('.navbar', {
-        scaleY: 0,
-        ease: easeOut,
-        duration: 1,
-        transformOrigin: 'bottom',
-      })
-      .from('.navbar-logo', {
-        opacity: 0,
-      }, '<0.5')
-      .from('.navbar-navigation_link', {
-        opacity: 0,
-        yPercent: 100,
-        ease: easeOut,
-        duration: 1,
-        stagger: { amount: 0.2 },
-      }, '<0.2')
 
+    tl.to('.intro-heading_itself .char', {
+      yPercent: 0,
+      stagger: '0.018',
+      ease: easeOut,
+      duration: 1.2,
+
+    })
+
+      .from('.navbar', {
+        yPercent: -100,
+        ease: easeOut,
+        duration: .6,
+      })
+
+    gsap.set('.main-paragraph .word', {
+      yPercent: -100,
+    })
+    gsap.to('.main-paragraph .word', {
+      stagger: { amount: 0.2 },
+      yPercent: 0,
+      duration: .6,
+      scrollTrigger: {
+        trigger: '.main-paragraph',
+        start: 'top 70%',
+        toggleActions: 'play complete reverse reverse',
+      }
+    })
 
   }
 

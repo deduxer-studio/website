@@ -206,3 +206,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.intro-heading_itself .line {
+  overflow: hidden;
+}
+
+.main-paragraph .line {
+  overflow: hidden;
+}
