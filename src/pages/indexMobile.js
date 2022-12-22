@@ -47,19 +47,19 @@ export function initMobile() {
         duration: 1,
       })
 
-    gsap.set('.main-paragraph .word', {
-      yPercent: -100,
-    })
-    gsap.to('.main-paragraph .word', {
-      stagger: { amount: 0.2 },
-      yPercent: 0,
-      duration: .6,
-      scrollTrigger: {
-        trigger: '.main-paragraph',
-        start: 'top 70%',
-        toggleActions: 'play complete reverse reverse',
-      }
-    })
+    // gsap.set('.main-paragraph .word', {
+    //   yPercent: -100,
+    // })
+    // gsap.to('.main-paragraph .word', {
+    //   stagger: { amount: 0.2 },
+    //   yPercent: 0,
+    //   duration: .6,
+    //   scrollTrigger: {
+    //     trigger: '.main-paragraph',
+    //     start: 'top 70%',
+    //     toggleActions: 'play complete reverse reverse',
+    //   }
+    // })
   }
   function Clients() {
     let swiper = new Swiper('.clients-slider', {
