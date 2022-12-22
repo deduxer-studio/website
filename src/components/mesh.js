@@ -24,149 +24,193 @@ export function initMesh() {
   if (window.innerWidth > 768) {
 
     deductionCamera.position.x = -3
-
-
-    tl.to(
-      deductionCamera.position,
-      {
-        x: 3,
-      },
-      'first'
-    )
-    tl.to(deductionCamera.position, {
-      x: -3,
-    })
-    tl.fromTo(
-      deductionOptions.cam,
-      {
-        zoom: currentZoom,
-      },
-      {
-        zoom: 12,
-        delay: 3.2,
-      },
-      'first'
-    )
-    tl.to(
-      deductionCamera.position,
-      {
-        x: 0,
-        delay: 1.4,
-      },
-      'client'
-    )
-
+    //clients
     ScrollTrigger.create({
       trigger: '.section_clients',
       start: 'top top',
       end: '+=40%',
       scrub: true,
-      onUpdate: (self) => {
-        deductionOptions.cam.zoom = Math.min(self.progress * 40, 40)
-        console.log(deductionOptions.cam.zoom);
+      onEnter: () => {
+        console.log('enter back');
+        gsap.to(deductionOptions.cam, {
+          zoom: 2,
+          duration: 1,
+        })
+        gsap.to(deductionCamera.position, {
+          x: 3,
+          duration: 2,
+        })
+      },
+      onLeaveBack: () => {
+        console.log('leave back');
+        gsap.to(deductionOptions.cam, {
+          zoom: 12,
+          duration: 1,
+        })
+        gsap.to(deductionCamera.position, {
+          x: 0,
+          duration: .5,
+        })
+      }
+    })
+    //introduction
+    ScrollTrigger.create({
+      trigger: '.section-introduction',
+      start: 'top top',
+      end: '+=40%',
+      scrub: true,
+      onEnter: () => {
+        gsap.to(deductionCamera.position, {
+          x: -3,
+          duration: 1,
+        })
+        gsap.to(deductionOptions.cam, {
+          zoom: 2,
+          duration: 1,
+        })
       },
     })
+    //info
+    ScrollTrigger.create({
+      trigger: '.section_info',
+      start: 'top top',
+      end: '+=100%',
+      scrub: true,
+      onEnter: () => {
+        gsap.to(deductionCamera.position, {
+          x: 0,
+          duration: 1,
+        })
+        gsap.to(deductionOptions.cam, {
+          zoom: 15,
+          duration: 1,
+        })
+      },
+      onLeaveBack: () => {
+        gsap.to(deductionCamera.position, {
+          x: -3,
+          duration: 1,
+        })
+        gsap.to(deductionOptions.cam, {
+          zoom: 2,
+          duration: 1,
+        })
+      },
+    })
+    //info headings
+    ScrollTrigger.create({
+      trigger: '.info-headings_line-last',
+      start: 'top center',
+      end: '+=100%',
+      scrub: true,
+      onEnter: () => {
+        gsap.to(deductionOptions.perlin, {
+          decay: 0.22,
+          duration: 3,
+        })
+      },
+      onLeaveBack: () => {
+        gsap.to(deductionOptions.perlin, {
+          decay: 0.15,
+          duration: 3,
+        })
+      },
+    })
+
+    //footer
     ScrollTrigger.create({
       trigger: '.component_footer',
       start: 'top top',
-      end: '+=50%',
+      end: '+=100%',
       scrub: true,
-      onUpdate: (self) => {
-        deductionOptions.cam.zoom = Math.min(self.progress * 2, 2)
-        console.log(deductionOptions.cam.zoom);
+      onEnter: () => {
+        gsap.to(deductionCamera.position, {
+          x: 0,
+          duration: 1,
+        })
+      },
+      onLeaveBack: () => {
+        gsap.to(deductionCamera.position, {
+          x: 3,
+          duration: 1,
+        })
+      },
+    })
+
+    //move mesh on mouse move
+    document.addEventListener('mousemove', (e) => {
+      let x = e.clientX / window.innerWidth - 0.5
+      let y = e.clientY / window.innerHeight - 0.5
+      gsap.to(deductionMesh.position, {
+        x: x * 1.5,
+        y: y * 1.5,
+        duration: 1,
+      })
+    })
+
+
+
+    // return tl
+  }
+  else {
+    deductionCamera.position.x = -1
+    deductionCamera.position.y = 0
+    deductionOptions.cam.zoom = 18
+    //info
+    ScrollTrigger.create({
+      trigger: '.section_info',
+      start: 'top top',
+      end: '+=100%',
+      scrub: true,
+      onEnter: () => {
+        gsap.to(deductionCamera.position, {
+          x: 0,
+          duration: 1,
+        })
+        gsap.to(deductionOptions.cam, {
+          zoom: 25,
+          duration: 1,
+        })
+      },
+      onLeaveBack: () => {
+        gsap.to(deductionCamera.position, {
+          x: -1,
+          duration: 1,
+        })
+        gsap.to(deductionOptions.cam, {
+          zoom: 18,
+          duration: 1,
+        })
       },
     })
 
 
-    // window on mouse move vanilla js
-    window.addEventListener('mousemove', function (e) {
-      gsap.to('.tooltip', {
-        duration: 0,
-        overwrite: 'auto',
-        x: e.clientX,
-        y: e.clientY,
-        ease: 'none',
-      })
-      deductionMesh.position.x = e.clientX / 1500
-      deductionMesh.position.y = e.clientY / -5000
+    ScrollTrigger.create({
+      trigger: '.section_clients',
+      start: 'top top',
+      scrub: true,
+      onEnter: () => {
+        gsap.to(deductionOptions.cam, {
+          zoom: 12,
+          duration: 1,
+        })
+        gsap.to(deductionCamera.position, {
+          x: 1,
+          duration: 2,
+        })
+      },
+      onLeaveBack: () => {
+        gsap.to(deductionOptions.cam, {
+          zoom: 18,
+          duration: 1,
+        })
+        gsap.to(deductionCamera.position, {
+          x: 0,
+          duration: .5,
+        })
+      }
     })
 
-    return tl
-  }
-  else {
-    deductionCamera.position.x = 0
-    deductionCamera.position.y = 0
-
-    deductionOptions.perlin.decay = 0.1
-    console.log(deductionOptions.cam.zoom + 'zoom')
-    // ScrollTrigger.create({
-    //   trigger: '.section_clients',
-    //   start: 'top top',
-    //   end: '+=40%',
-    //   scrub: true,
-    //   onUpdate: (self) => {
-    //     deductionOptions.cam.zoom = Math.min(self.progress * 40, 40)
-    //     console.log(deductionOptions.cam.zoom);
-    //   },
-    // })
-    // ScrollTrigger.create({
-    //   trigger: '.component_footer',
-    //   start: 'top top',
-    //   end: '+=50%',
-    //   scrub: true,
-    //   onUpdate: (self) => {
-    //     deductionOptions.cam.zoom = Math.min(self.progress * 2, 2)
-    //     console.log(deductionOptions.cam.zoom);
-    //   },
-    // })
-    // let tl = gsap.timeline({
-    //   scrollTrigger: {
-    //     trigger: '.page-wrapper',
-    //     start: 'top top',
-    //     end: '+=' + document.querySelector('.page-wrapper').offsetHeight,
-    //     scrub: true,
-    //     onUpdate: (self) => {
-    //       currentZoom = deductionOptions.cam.zoom
-    //       deductionOptions.perlin.waves = Math.min(self.progress + 3 * 2, 15)
-    //     },
-    //   },
-    // })
-    // tl.fromTo(deductionOptions.cam, {
-    //   zoom: 20,
-    // }, {
-    //   zoom: 10,
-    // }, 'first')
-    // tl.fromTo(deductionCamera.position, {
-    //   y: 0,
-    //   x: -2,
-    // }, {
-    //   y: 2,
-    //   x: -1,
-    // }, 'first')
-    // // tl.fromTo(deductionCamera.position, {
-    // //   y: 2,
-    // //   x: 1,
-    // // }, {
-    // //   y: -2,
-    // //   x: 0,
-    // // })
-    // // tl.fromTo(deductionOptions.cam, {
-    // //   zoom: 2,
-    // // }, {
-    // //   zoom: 10,
-    // // }, 'clients')
-    // // tl.fromTo(deductionOptions.cam, {
-    // //   zoom: 50,
-    // // }, {
-    // //   zoom: 3,
-    // // }, '+=1')
-    // tl.fromTo(deductionCamera.position, {
-    //   y: -2,
-    //   x: -3,
-    // }, {
-    //   y: 1,
-    //   x: 0,
-    // }, 'last')
 
 
 

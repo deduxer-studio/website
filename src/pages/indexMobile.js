@@ -13,13 +13,18 @@ export function initMobile() {
   let easeOut = 'power3.inOut'
 
   // * Text Split
-  new SplitType(
+  const split = new SplitType(
     '[text-split], .heading-hero, .hero-content_block, .info__headings-itself, .work-title, .letter-wrap',
     {
       types: 'words, chars, lines',
       tagName: 'span',
     }
   )
+  //update split on resize
+  window.addEventListener('resize', () => {
+    split.revert()
+    split.split()
+  })
 
   function HeroMobile() {
     let tl = gsap.timeline()
@@ -39,7 +44,7 @@ export function initMobile() {
       .from('.navbar', {
         yPercent: -100,
         ease: easeOut,
-        duration: .6,
+        duration: 1,
       })
 
     gsap.set('.main-paragraph .word', {

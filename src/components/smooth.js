@@ -19,7 +19,6 @@ export function initSmoothScroll() {
     smooth: 1.5,
     wrapper: '[smooth-wrapper]',        // how long (in seconds) it takes to "catch up" to the native scroll position
     effects: true,
-    smoothTouch: 0.2,
   });
 
 
