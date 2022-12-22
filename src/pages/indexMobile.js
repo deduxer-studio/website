@@ -50,15 +50,10 @@ export function initMobile() {
     gsap.set('.main-paragraph .word', {
       yPercent: -100,
     })
-    gsap.to('.main-paragraph .word', {
+    tl.to('.main-paragraph .word', {
       stagger: { amount: 0.2 },
       yPercent: 0,
       duration: .6,
-      scrollTrigger: {
-        trigger: '.main-paragraph',
-        start: 'top 70%',
-        toggleActions: 'play complete reverse reverse',
-      }
     })
   }
   function Clients() {
