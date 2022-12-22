@@ -6,20 +6,7 @@ import { deductionCamera, deductionMesh, deductionOptions } from './deduction'
 
 export function initMesh() {
   gsap.registerPlugin(ScrollTrigger)
-  let currentZoom = deductionOptions.cam.zoom
-  let currentDecay = deductionOptions.perlin.decay
-  let tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.page-wrapper',
-      start: 'top top',
-      end: '+=' + document.querySelector('.page-wrapper').offsetHeight,
-      scrub: true,
-      onUpdate: (self) => {
-        currentZoom = deductionOptions.cam.zoom
-        deductionOptions.perlin.waves = Math.min(self.progress + 3 * 2, 15)
-      },
-    },
-  })
+
 
   if (window.innerWidth > 768) {
 
