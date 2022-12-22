@@ -16,13 +16,29 @@ export function initHome() {
   let easeOut = 'power2.inOut'
 
   // * Text Split
-  new SplitType(
+  const split = new SplitType(
     '[text-split], .heading-hero, .hero-content_block, .info__headings-itself, .work-title, .letter-wrap',
     {
       types: 'words, chars, lines',
       tagName: 'span',
     }
   )
+
+  //update split on resize
+  window.addEventListener('resize', () => {
+    split.revert()
+    split.split()
+  })
+
+
+  //tooltip follow mouse with gsap
+
+  $(document).on('mousemove', function (e) {
+    gsap.to('.tooltip', {
+      x: e.clientX,
+      y: e.clientY,
+    })
+  })
 
   function Clients() {
     let swiper = new Swiper('.clients-slider', {
@@ -168,6 +184,8 @@ export function initHome() {
       })
       $(this).on('mouseleave', function () {
         hovered = 0
+        //increase tl speed
+        tl.timeScale(2)
         tl.reverse()
 
       })
