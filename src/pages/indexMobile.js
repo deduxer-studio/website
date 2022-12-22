@@ -96,7 +96,7 @@ export function initMobile() {
         tl.to($(this), {
           // index y perc
           xPercent: -index * 100,
-          ease: easeOut,
+          ease: 'sine.in',
           stagger: { amount: 0.2 },
         })
         //reduce opacity for previous block
