@@ -14,6 +14,7 @@ window.addEventListener('load', initDeduction, false)
 //check mobile
 initMesh()
 if (window.innerWidth < 768) {
+  initSmoothScroll()
   initMobile()
 }
 else {
