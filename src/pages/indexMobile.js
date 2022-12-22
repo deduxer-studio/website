@@ -86,7 +86,7 @@ export function initMobile() {
       let tl = gsap.timeline({
         scrollTrigger: {
           trigger: $(this),
-          start: 'top center',
+          start: 'top top',
           end: '+=100%',
           pin: true,
           scrub: 1,
