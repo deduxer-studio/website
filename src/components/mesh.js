@@ -199,6 +199,23 @@ export function initMesh() {
     })
 
 
+    ScrollTrigger.create({
+      trigger: '.section-introduction',
+      start: 'top top',
+      end: '+=40%',
+      scrub: true,
+      onEnter: () => {
+        gsap.to(deductionCamera.position, {
+          x: -1,
+          duration: 1,
+        })
+        gsap.to(deductionOptions.cam, {
+          zoom: 18,
+          duration: 1,
+        })
+      },
+    })
+
 
 
 
