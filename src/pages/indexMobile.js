@@ -20,11 +20,7 @@ export function initMobile() {
       tagName: 'span',
     }
   )
-  //update split on resize
-  window.addEventListener('resize', () => {
-    split.revert()
-    split.split()
-  })
+
 
   function HeroMobile() {
     let tl = gsap.timeline()
@@ -125,26 +121,7 @@ export function initMobile() {
     })
   }
 
-  function Scruber() {
 
-    $(".main_info").each(function () {
-      let tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: $(this),
-          // trigger element - viewport
-          start: "top center",
-          end: "+=120%",
-          scrub: 1
-        }
-      });
-
-      tl.from($(this).find(".word"), {
-        opacity: 0.2,
-        stagger: { amount: 0.8 },
-      });
-    });
-
-  }
   function Links() {
 
     function getRandomLetter(length) {
@@ -201,7 +178,7 @@ export function initMobile() {
 
 
   let master = gsap.timeline()
-  master.add(HeroMobile()).add(Clients()).add(Links()).add(PinText()).add(Scruber())
+  master.add(HeroMobile()).add(Clients()).add(Links()).add(PinText())
 
 
 
