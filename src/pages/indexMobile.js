@@ -13,13 +13,15 @@ export function initMobile() {
   let easeOut = 'power3.inOut'
 
   // * Text Split
-  const split = new SplitType(
+  new SplitType(
     '[text-split], .heading-hero, .hero-content_block, .info__headings-itself, .work-title, .letter-wrap',
     {
       types: 'words, chars, lines',
       tagName: 'span',
     }
   )
+
+  ScrollTrigger.update()
 
 
   function HeroMobile() {
