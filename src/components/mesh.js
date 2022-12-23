@@ -88,25 +88,7 @@ export function initMesh() {
         })
       },
     })
-    //info headings
-    ScrollTrigger.create({
-      trigger: '.info-headings_line-last',
-      start: 'top center',
-      end: '+=100%',
-      scrub: true,
-      onEnter: () => {
-        gsap.to(deductionOptions.perlin, {
-          decay: 0.22,
-          duration: 3,
-        })
-      },
-      onLeaveBack: () => {
-        gsap.to(deductionOptions.perlin, {
-          decay: 0.15,
-          duration: 3,
-        })
-      },
-    })
+
 
     //footer
     ScrollTrigger.create({
