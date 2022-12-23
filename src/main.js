@@ -13,13 +13,13 @@ initPageTransition()
 window.addEventListener('load', initDeduction, false)
 //check mobile
 initMesh()
-initSmoothScroll()
+
 if (window.innerWidth < 768) {
   initMobile()
 }
 else {
   initHome()
-
+  initSmoothScroll()
 }
 
 
