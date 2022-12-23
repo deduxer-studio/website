@@ -21,7 +21,6 @@ export function initMobile() {
     }
   )
 
-  ScrollTrigger.update()
 
 
   function HeroMobile() {
@@ -186,26 +185,6 @@ export function initMobile() {
 
   console.clear()
   console.log('Loaded Mobile');
-
-
-  const lenis = new Lenis({
-    duration: 1.8,
-    easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
-    direction: "vertical",
-    gestureDirection: "vertical",
-    smooth: true,
-    smoothTouch: true,
-    smoothMobile: true,
-    touchMultiplier: 2,
-  });
-
-  function raf(time) {
-    lenis.raf(time);
-    ScrollTrigger.update();
-    requestAnimationFrame(raf);
-  }
-
-  requestAnimationFrame(raf);
 
 
 
