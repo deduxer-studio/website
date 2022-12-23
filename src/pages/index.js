@@ -195,37 +195,11 @@ export function initHome() {
 
 
 
-    gsap.from('.main_info .line', {
-      stagger: { amount: 0.2 },
-      yPercent: 100,
-      scrollTrigger: {
-        trigger: '.section_info',
 
-      }
-    })
 
   }
 
-  function Scruber() {
 
-    $(".main_info").each(function () {
-      let tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: $(this),
-          // trigger element - viewport
-          start: "top center",
-          end: "+=120%",
-          scrub: 1
-        }
-      });
-
-      tl.from($(this).find(".word"), {
-        opacity: 0.2,
-        stagger: { amount: 0.8 },
-      });
-    });
-
-  }
   function Links() {
 
     function getRandomLetter(length) {
@@ -431,7 +405,7 @@ export function initHome() {
 
 
   let master = gsap.timeline()
-  master.add(Hero()).add(PinText()).add(Info()).add(Works()).add(Indicator()).add(Clients()).add(Footer()).add(Links()).add(Scruber())
+  master.add(Hero()).add(PinText()).add(Info()).add(Works()).add(Indicator()).add(Clients()).add(Footer()).add(Links())
   console.log('Loaded Desktop');
 }
 
