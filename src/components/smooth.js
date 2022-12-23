@@ -16,8 +16,7 @@ export function initSmoothScroll() {
   //init smooth scroll
   gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
   ScrollSmoother.create({
-    smooth: 1.5,
-    wrapper: '[smooth-wrapper]',        // how long (in seconds) it takes to "catch up" to the native scroll position
+    smooth: 1.5,      // how long (in seconds) it takes to "catch up" to the native scroll position
     effects: true,
     smoothTouch: true,
   });
