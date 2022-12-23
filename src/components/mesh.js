@@ -10,6 +10,10 @@ export function initMesh() {
 
   if (window.innerWidth > 768) {
 
+
+
+
+
     deductionCamera.position.x = -3
     //clients
     ScrollTrigger.create({
@@ -134,6 +138,7 @@ export function initMesh() {
         duration: 1,
       })
     })
+
 
 
 
