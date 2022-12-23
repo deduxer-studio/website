@@ -47,7 +47,9 @@ function createWorld() {
   //---
   document.querySelector('.deduction_embed').appendChild(renderer.domElement);
   //---
-  window.addEventListener('resize', onWindowResize, false);
+  if (window.innerWidth > 768) {
+    window.addEventListener('resize', onWindowResize, false);
+  }
 }
 function onWindowResize() {
   _width = window.innerWidth;
