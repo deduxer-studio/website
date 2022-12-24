@@ -214,3 +214,7 @@ body {
 .main-paragraph .line {
   overflow: hidden;
 }
+
+.work-bg-placeholder {
+  display: block;
+}

@@ -58,6 +58,24 @@ export function initMobile() {
       }
     })
   }
+  function WorksEnter() {
+    $('.work-bg-placeholder').each(function () {
+      //change height to 0% when element is in viewport
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: $(this),
+          start: 'top center',
+          end: 'bottom center',
+          onEnter: () => {
+            console.log('enter');
+            $(this).css('height', '0%')
+          },
+        }
+      })
+
+      return tl
+    })
+  }
   function Clients() {
     let swiper = new Swiper('.clients-slider', {
       // Optional parameters
@@ -179,12 +197,10 @@ export function initMobile() {
 
 
   let master = gsap.timeline()
-  master.add(HeroMobile()).add(Clients()).add(Links()).add(PinText())
+  master.add(HeroMobile()).add(Clients()).add(Links()).add(PinText()).add(WorksEnter())
 
 
 
-  console.clear()
-  console.log('Loaded Mobile');
 
 
 

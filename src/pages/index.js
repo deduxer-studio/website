@@ -316,9 +316,9 @@ export function initHome() {
 
     tl.to('.intro-heading_itself .char', {
       yPercent: 0,
-      stagger: '0.018',
-      ease: easeOut,
-      duration: 1.2,
+      stagger: '0.016',
+      ease: 'power2.out',
+      duration: 1.15,
 
     })
 
@@ -337,10 +337,85 @@ export function initHome() {
       duration: .6,
       scrollTrigger: {
         trigger: '.main-paragraph',
-        start: 'top 70%',
-        toggleActions: 'play complete reverse reverse',
+        start: 'top bottom',
+        toggleActions: 'play none none none',
       }
     })
+
+  }
+
+  function Navbar() {
+    // hamburger menu click function with jquery and gsap
+
+
+    let tl = gsap.timeline({ paused: true });
+    gsap.set('.navbar-background', {
+      display: 'flex',
+      y: '-100%'
+    })
+    gsap.set('.navbar-links .char', {
+      yPercent: 101,
+
+    })
+    gsap.set('.socials-navbar .char', {
+      yPercent: 101,
+
+    })
+    gsap.set('.navbar-indicator div', {
+      yPercent: 101,
+
+    })
+    tl.to('.navbar-background', {
+      y: '0%',
+      duration: 1.6,
+      ease: easeOut,
+
+    }, 'same')
+    tl.to('.navbar-menu_wrapper', {
+      height: '60vh',
+      duration: 1.2,
+      ease: easeOut,
+      delay: .8
+
+    }, 'same')
+    tl.to('.navbar-links .char', {
+      stagger: '0.018',
+      yPercent: 0,
+      duration: .8,
+      delay: 1.2,
+      ease: 'power2.out',
+
+    }, 'same')
+    tl.to('.socials-navbar .char', {
+      yPercent: 0,
+      duration: .6,
+      delay: 1.4,
+      ease: 'power2.out',
+
+    }, 'same')
+
+    tl.to('.navbar-indicator div', {
+      yPercent: 0,
+      stagger: { amount: 0.2 },
+      duration: .9,
+      delay: 1.2,
+      ease: easeOut,
+
+    }, 'same')
+
+
+    $('.navbar-hamburger').on('click', function () {
+      $('.component_navbar').toggleClass('active');
+      if ($('.component_navbar').hasClass('active')) {
+        tl.timeScale(1);
+        tl.play();
+      } else {
+        tl.timeScale(1.6);
+        tl.reverse();
+        //play 2x faster
+      }
+    })
+
 
   }
 
@@ -403,10 +478,28 @@ export function initHome() {
     })
   }
 
+  function WorksEnter() {
+    $('.work-bg-placeholder').each(function () {
+      //change height to 0% when element is in viewport
+      let tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: $(this),
+          start: 'top center',
+          end: 'bottom center',
+          onEnter: () => {
+            console.log('enter');
+            $(this).css('height', '0%')
+          },
+        }
+      })
+
+      return tl
+    })
+  }
+
 
   let master = gsap.timeline()
-  master.add(Hero()).add(PinText()).add(Info()).add(Works()).add(Indicator()).add(Clients()).add(Footer()).add(Links())
-  console.log('Loaded Desktop');
+  master.add(Hero()).add(PinText()).add(Info()).add(Works()).add(Indicator()).add(Clients()).add(Footer()).add(Links()).add(WorksEnter()).add(Navbar())
 }
 
 

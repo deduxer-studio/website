@@ -22,7 +22,6 @@ export function initMesh() {
       end: '+=40%',
       scrub: true,
       onEnter: () => {
-        console.log('enter back');
         gsap.to(deductionOptions.cam, {
           zoom: 2,
           duration: 1,
@@ -33,9 +32,9 @@ export function initMesh() {
         })
       },
       onLeaveBack: () => {
-        console.log('leave back');
+
         gsap.to(deductionOptions.cam, {
-          zoom: 12,
+          zoom: 3,
           duration: 1,
         })
         gsap.to(deductionCamera.position, {
@@ -88,7 +87,25 @@ export function initMesh() {
         })
       },
     })
-
+    //info headings
+    ScrollTrigger.create({
+      trigger: '.info-headings_line-last',
+      start: 'top center',
+      end: '+=100%',
+      scrub: true,
+      onEnter: () => {
+        gsap.to(deductionOptions.cam, {
+          zoom: 3,
+          duration: 1,
+        })
+      },
+      onLeaveBack: () => {
+        gsap.to(deductionOptions.cam, {
+          zoom: 15,
+          duration: 1,
+        })
+      },
+    })
 
     //footer
     ScrollTrigger.create({
@@ -130,6 +147,7 @@ export function initMesh() {
     deductionCamera.position.x = -1
     deductionCamera.position.y = 0
     deductionOptions.cam.zoom = 18
+    ScrollTrigger.update()
     //info
     ScrollTrigger.create({
       trigger: '.section_info',
@@ -202,7 +220,25 @@ export function initMesh() {
         })
       },
     })
-
+    //info headings
+    ScrollTrigger.create({
+      trigger: '.info-headings_line-last',
+      start: 'top center',
+      end: '+=100%',
+      scrub: true,
+      onEnter: () => {
+        gsap.to(deductionOptions.cam, {
+          zoom: 10,
+          duration: 1,
+        })
+      },
+      onLeaveBack: () => {
+        gsap.to(deductionOptions.cam, {
+          zoom: 18,
+          duration: 1,
+        })
+      },
+    })
 
 
 
