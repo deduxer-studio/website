@@ -195,9 +195,84 @@ export function initMobile() {
     });
   }
 
+  function Navbar() {
+    // hamburger menu click function with jquery and gsap
+
+
+    let tl = gsap.timeline({ paused: true });
+    gsap.set('.navbar-background', {
+      display: 'flex',
+      y: '-100%'
+    })
+    gsap.set('.navbar-links .char', {
+      yPercent: 101,
+
+    })
+    gsap.set('.socials-navbar .char', {
+      yPercent: 101,
+
+    })
+    gsap.set('.navbar-indicator div', {
+      yPercent: 101,
+
+    })
+    tl.to('.navbar-background', {
+      y: '0%',
+      duration: 1.6,
+      ease: easeOut,
+
+    }, 'same')
+    tl.to('.navbar-menu_wrapper', {
+      height: '60vh',
+      duration: 1.2,
+      ease: easeOut,
+      delay: .8
+
+    }, 'same')
+    tl.to('.navbar-links .char', {
+      stagger: '0.018',
+      yPercent: 0,
+      duration: .8,
+      delay: 1.2,
+      ease: 'power2.out',
+
+    }, 'same')
+    tl.to('.socials-navbar .char', {
+      yPercent: 0,
+      duration: .6,
+      delay: 1.4,
+      ease: 'power2.out',
+
+    }, 'same')
+
+    tl.to('.navbar-indicator div', {
+      yPercent: 0,
+      stagger: { amount: 0.2 },
+      duration: .9,
+      delay: 1.2,
+      ease: easeOut,
+
+    }, 'same')
+
+
+    $('.navbar-hamburger').on('click', function () {
+      $('.component_navbar').toggleClass('active');
+      if ($('.component_navbar').hasClass('active')) {
+        tl.timeScale(1);
+        tl.play();
+      } else {
+        tl.timeScale(1.6);
+        tl.reverse();
+        //play 2x faster
+      }
+    })
+
+
+  }
+
 
   let master = gsap.timeline()
-  master.add(HeroMobile()).add(Clients()).add(Links()).add(PinText()).add(WorksEnter())
+  master.add(HeroMobile()).add(Clients()).add(Links()).add(PinText()).add(WorksEnter()).add(Navbar())
 
 
 
