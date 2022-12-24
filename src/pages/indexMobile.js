@@ -223,7 +223,7 @@ export function initMobile() {
 
     }, 'same')
     tl.to('.navbar-menu_wrapper', {
-      height: '60vh',
+      height: '80vh',
       duration: 1.2,
       ease: easeOut,
       delay: .8
