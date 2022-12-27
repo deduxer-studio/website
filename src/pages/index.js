@@ -80,7 +80,7 @@ export function initHome() {
       });
     }
 
-    $("[words-slide-up]").each(function (index) {
+    $(".main-paragraph").each(function (index) {
       let tl = gsap.timeline({ paused: true });
       tl.from($(this).find(".word"), { yPercent: 101, duration: 0.65, ease: easeOut, stagger: '0.007' });
       createScrollTrigger($(this), tl);
@@ -89,12 +89,6 @@ export function initHome() {
 
 
 
-
-    $("[letters-slide-up]").each(function (index) {
-      let tl = gsap.timeline({ paused: true });
-      tl.from($(this).find(".char"), { yPercent: 101, duration: 0.35, ease: easeOut, stagger: '0.018' });
-      createScrollTrigger($(this), tl);
-    });
 
 
     const container = document.querySelector(".horizontal-wrapper");
