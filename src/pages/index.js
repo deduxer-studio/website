@@ -64,40 +64,42 @@ export function initHome() {
   function PinText() {
 
 
-    $('.info-headings_line').each(function (index) {
-      let tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: $(this),
-          end: '+=80%',
-          start: 'top top',
-          pin: true,
-          scrub: true,
-        }
-      })
-      tl.set($(this).find('.solution-bg'), {
-        scaleY: 0,
-      })
-      tl.set($(this).find('.heading-solutions .char'), {
-        y: '-100%',
-      })
-      tl.to($(this), {
-        yPercent: 20,
-      }, 'same')
+    const container = document.querySelector(".horizontal-wrapper");
 
-      tl.to($(this).find('.solution-bg'), {
-        scaleY: 1,
-        transformOrigin: 'bottom',
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: container,
+        pin: true,
+        scrub: true,
+        start: "top top",
+        end: "650%"
+      }
+    });
+    timeline.to('.process-content', {
+      opacity: 0,
+      scale: 0.85,
+      transformOrigin: 'left center',
+      duration: 0.5,
+      ease: easeOut,
+    }, 0)
+
+    $('.process-card').each(function (index) {
+      timeline.to($(this), {
+        x: '0%',
+        ease: 'none',
+      }, index * 0.5)
+      timeline.to($(this).prev(), {
+        x: '-90vw',
+        ease: 'none',
+      }, index * 0.5)
+
+    })
+    $('.card-lottie').each(function (index) {
+      timeline.to($(this), {
+        x: '70vw',
+        delay: 0.2,
         ease: easeOut,
-
-      }, 'same')
-      tl.to($(this).find('.heading-solutions .char'), {
-        y: '0',
-        stagger: { amount: 0.4 },
-
-        ease: easeOut,
-
-      }, 'same')
-
+      }, index * 0.5)
     })
 
 
@@ -418,6 +420,7 @@ export function initHome() {
 
 
   }
+
 
 
   function Info() {

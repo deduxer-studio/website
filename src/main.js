@@ -2,24 +2,45 @@
 import './styles/style.css'
 // import all code from components smooth
 import { initPageTransition } from './components/barba'
-import { initDeduction } from './components/deduction'
-import { initMesh } from './components/mesh'
 import { initSmoothScroll } from './components/smooth'
-import { initHome } from './pages/index'
-import { initMobile } from './pages/indexMobile'
 
 initPageTransition()
 
-window.addEventListener('load', initDeduction, false)
-//check mobile
-initMesh()
+//############################################ CONTACT ############################################
+if (window.location.pathname === '/contact') {
+  console.log('contact');
+  import('./pages/contact').then((contact) => {
+    contact.initContact()
+  })
+}
 
-if (window.innerWidth < 768) {
-  initMobile()
+//############################################ HOME ############################################
+if (window.location.pathname === '/') {
+
+  import('./components/deduction').then((deduction) => {
+    deduction.initDeduction()
+  })
+
+  import('./components/mesh').then((mesh) => {
+    mesh.initMesh()
+  })
+  if (window.innerWidth < 768) {
+    //########## MOBILE ##########
+    import('./pages/indexMobile').then((home) => {
+      home.initMobile()
+    })
+
+  }
+  else {
+    //########## PC ##########
+    initSmoothScroll()
+    import('./pages/index').then((home) => {
+      home.initHome()
+    })
+
+  }
 }
-else {
-  initHome()
-  initSmoothScroll()
-}
+
+
 
 

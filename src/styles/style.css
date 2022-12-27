@@ -211,10 +211,23 @@ body {
   overflow: hidden;
 }
 
-.main-paragraph .line {
+.line {
   overflow: hidden;
 }
 
 .work-bg-placeholder {
   display: block;
+}
+
+.process-cards-wrapper {
+  pointer-events: none;
+}
+
+/*mobile media query*/
+@media screen and (max-width: 479px) {
+  .process-cards-wrapper {
+    pointer-events: auto;
+  }
+
+
 }

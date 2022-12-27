@@ -23,23 +23,50 @@ export function initMesh() {
       scrub: true,
       onEnter: () => {
         gsap.to(deductionOptions.cam, {
-          zoom: 2,
+          zoom: 6,
           duration: 1,
         })
         gsap.to(deductionCamera.position, {
-          x: 3,
+          x: 0,
           duration: 2,
         })
       },
       onLeaveBack: () => {
 
         gsap.to(deductionOptions.cam, {
-          zoom: 3,
+          zoom: 2,
           duration: 1,
         })
         gsap.to(deductionCamera.position, {
-          x: 0,
+          x: 3,
           duration: .5,
+        })
+      }
+    })
+    ScrollTrigger.create({
+      trigger: '.section_process',
+      start: 'top top',
+      end: '+=80%',
+      scrub: true,
+      onEnter: () => {
+        gsap.to(deductionOptions.cam, {
+          zoom: 1,
+          duration: 1,
+        })
+        gsap.to(deductionCamera.position, {
+          x: 3,
+          duration: 1,
+        })
+      },
+      onLeaveBack: () => {
+
+        gsap.to(deductionCamera.position, {
+          x: -3,
+          duration: 1,
+        })
+        gsap.to(deductionOptions.cam, {
+          zoom: 2,
+          duration: 1,
         })
       }
     })
@@ -87,25 +114,7 @@ export function initMesh() {
         })
       },
     })
-    //info headings
-    ScrollTrigger.create({
-      trigger: '.info-headings_line-last',
-      start: 'top center',
-      end: '+=100%',
-      scrub: true,
-      onEnter: () => {
-        gsap.to(deductionOptions.cam, {
-          zoom: 3,
-          duration: 1,
-        })
-      },
-      onLeaveBack: () => {
-        gsap.to(deductionOptions.cam, {
-          zoom: 15,
-          duration: 1,
-        })
-      },
-    })
+
 
     //footer
     ScrollTrigger.create({
@@ -118,10 +127,18 @@ export function initMesh() {
           x: 0,
           duration: 1,
         })
+        gsap.to(deductionOptions.cam, {
+          zoom: 2,
+          duration: 1,
+        })
       },
       onLeaveBack: () => {
         gsap.to(deductionCamera.position, {
           x: 3,
+          duration: 1,
+        })
+        gsap.to(deductionOptions.cam, {
+          zoom: 6,
           duration: 1,
         })
       },
