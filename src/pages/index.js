@@ -62,6 +62,39 @@ export function initHome() {
 
   }
   function PinText() {
+    function createScrollTrigger(triggerElement, timeline) {
+      // Reset tl when scroll out of view past bottom of screen
+      ScrollTrigger.create({
+        trigger: triggerElement,
+        start: "top bottom",
+        onLeaveBack: () => {
+          timeline.progress(0);
+          timeline.pause();
+        }
+      });
+      // Play tl when scrolled into view (60% from top of screen)
+      ScrollTrigger.create({
+        trigger: triggerElement,
+        start: "top 60%",
+        onEnter: () => timeline.play()
+      });
+    }
+
+    $("[words-slide-up]").each(function (index) {
+      let tl = gsap.timeline({ paused: true });
+      tl.from($(this).find(".word"), { yPercent: 101, duration: 0.65, ease: easeOut, stagger: '0.007' });
+      createScrollTrigger($(this), tl);
+    });
+
+
+
+
+
+    $("[letters-slide-up]").each(function (index) {
+      let tl = gsap.timeline({ paused: true });
+      tl.from($(this).find(".char"), { yPercent: 101, duration: 0.35, ease: easeOut, stagger: '0.018' });
+      createScrollTrigger($(this), tl);
+    });
 
 
     const container = document.querySelector(".horizontal-wrapper");
@@ -330,19 +363,6 @@ export function initHome() {
         duration: .6,
       })
 
-    gsap.set('.main-paragraph .word', {
-      yPercent: -100,
-    })
-    gsap.to('.main-paragraph .word', {
-      stagger: { amount: 0.2 },
-      yPercent: 0,
-      duration: .6,
-      scrollTrigger: {
-        trigger: '.main-paragraph',
-        start: 'top bottom',
-        toggleActions: 'play none none none',
-      }
-    })
 
   }
 
