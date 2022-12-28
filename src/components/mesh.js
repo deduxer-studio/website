@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -7,13 +6,7 @@ import { deductionCamera, deductionMesh, deductionOptions } from './deduction'
 export function initMesh() {
   gsap.registerPlugin(ScrollTrigger)
 
-
   if (window.innerWidth > 768) {
-
-
-
-
-
     deductionCamera.position.x = -3
     //clients
     ScrollTrigger.create({
@@ -32,16 +25,15 @@ export function initMesh() {
         })
       },
       onLeaveBack: () => {
-
         gsap.to(deductionOptions.cam, {
           zoom: 2,
           duration: 1,
         })
         gsap.to(deductionCamera.position, {
           x: 3,
-          duration: .5,
+          duration: 0.5,
         })
-      }
+      },
     })
     ScrollTrigger.create({
       trigger: '.section_process',
@@ -59,7 +51,6 @@ export function initMesh() {
         })
       },
       onLeaveBack: () => {
-
         gsap.to(deductionCamera.position, {
           x: -3,
           duration: 1,
@@ -68,7 +59,7 @@ export function initMesh() {
           zoom: 2,
           duration: 1,
         })
-      }
+      },
     })
     //introduction
     ScrollTrigger.create({
@@ -115,7 +106,6 @@ export function initMesh() {
       },
     })
 
-
     //footer
     ScrollTrigger.create({
       trigger: '.component_footer',
@@ -155,12 +145,8 @@ export function initMesh() {
       })
     })
 
-
-
-
     // return tl
-  }
-  else {
+  } else {
     deductionCamera.position.x = -1
     deductionCamera.position.y = 0
     deductionOptions.cam.zoom = 18
@@ -193,7 +179,6 @@ export function initMesh() {
       },
     })
 
-
     ScrollTrigger.create({
       trigger: '.section_clients',
       start: 'top top',
@@ -215,11 +200,10 @@ export function initMesh() {
         })
         gsap.to(deductionCamera.position, {
           x: 0,
-          duration: .5,
+          duration: 0.5,
         })
-      }
+      },
     })
-
 
     ScrollTrigger.create({
       trigger: '.section-introduction',
@@ -256,11 +240,5 @@ export function initMesh() {
         })
       },
     })
-
-
-
   }
-
-
-
 }
