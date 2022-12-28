@@ -28,6 +28,7 @@ if (window.location.pathname === '/') {
     //########## MOBILE ##########
     import('./pages/indexMobile').then((home) => {
       home.initMobile()
+      initSmoothScroll()
     })
 
   }

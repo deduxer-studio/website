@@ -18,7 +18,7 @@ export function initSmoothScroll() {
   ScrollSmoother.create({
     smooth: 1.5,      // how long (in seconds) it takes to "catch up" to the native scroll position
     effects: true,
-    smoothTouch: false,
+    smoothTouch: 0.15,
   });
 
 

@@ -178,48 +178,6 @@ export function initHome() {
     })
 
 
-    $('.work-card-bg').each(function (index) {
-      $(this).hover(function () {
-
-        $(this).find('.work-bg').addClass("active");  //Add the active class to the area is hovered
-      }, function () {
-        $(this).find('.work-bg').removeClass("active");
-      });
-
-
-
-
-    })
-
-    $('.works-cms').each(function () {
-      let hovered = 0
-      gsap.set('.work-title .char', {
-        y: '101%',
-      })
-      let tl = gsap.timeline({ paused: true })
-
-      tl.to($(this).find('.work-title .char'), {
-        y: '0%',
-        stagger: { amount: 0.2 },
-        ease: easeOut,
-        duration: 0.6,
-      })
-
-      $(this).on('mouseenter', function () {
-        hovered = 1
-
-        tl.play()
-
-      })
-      $(this).on('mouseleave', function () {
-        hovered = 0
-        //increase tl speed
-        tl.timeScale(2)
-        tl.reverse()
-
-      })
-
-    })
 
 
 
@@ -454,27 +412,7 @@ export function initHome() {
 
   }
 
-  function Works() {
-    let tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.section_works',
-        start: 'top top',
-        scrub: true,
-        pin: true,
-        end: '+=40%',
-      }
-    })
 
-    tl.to('.background-works', {
-      width: '100%',
-      height: '100%',
-      borderRadius: 0,
-      ease: easeOut,
-    })
-
-
-
-  }
 
 
   function Footer() {
@@ -516,7 +454,7 @@ export function initHome() {
 
 
   let master = gsap.timeline()
-  master.add(Hero()).add(PinText()).add(Info()).add(Works()).add(Indicator()).add(Clients()).add(Footer()).add(Links()).add(WorksEnter()).add(Navbar())
+  master.add(Hero()).add(PinText()).add(Info()).add(Indicator()).add(Clients()).add(Footer()).add(Links()).add(WorksEnter()).add(Navbar())
 }
 
 
